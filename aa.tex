@@ -1,0 +1,252 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{float}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  columns=fullflexible,
+  showstringspaces=false
+}
+
+\title{Detailed End-to-End Implementation Report (Code, Data, Results)}
+\author{Guided Research Workspace}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{What Was Implemented}
+This document explains, in detail, the full implementation completed in this repository for the options-based equity return research workflow:
+\begin{enumerate}[leftmargin=1.2em]
+  \item multi-ticker data acquisition and completion,
+  \item full feature engineering (stock + options + macro + event),
+  \item panel preprocessing with leakage-safe temporal design,
+  \item multi-architecture model suite (XGBoost, FFNN, TabNet, TFT),
+  \item explainability outputs (XGB SHAP, FFNN SHAP, TabNet masks, TFT training/eval),
+  \item ``future plans'' implementation (rolling windows, regime analysis, significance tests, conformal, SHAP interaction/local/bootstrap CI, consensus analysis).
+\end{enumerate}
+
+\section{Data Pipeline (All Data Used)}
+
+\subsection{Raw Options and Underlying Data}
+Primary source: \texttt{philippdubach/options-data} parquet mirrors, stored as:
+\begin{itemize}[leftmargin=1.2em]
+  \item \texttt{data/raw/options\_data\_repo/<ticker>/options.parquet}
+  \item \texttt{data/raw/options\_data\_repo/<ticker>/underlying.parquet}
+\end{itemize}
+Tickers: \texttt{AAPL, MSFT, NVDA, AMZN, META, GOOGL, TSLA, AVGO, AMD, NFLX, PLTR, SPY, QQQ, JPM}.
+
+\subsection{Supplementary Controls (Yahoo)}
+Downloaded with \texttt{yfinance}:
+\begin{itemize}[leftmargin=1.2em]
+  \item Volatility/rates: \texttt{\^VIX}, \texttt{\^VIX3M}, \texttt{\^IRX}
+  \item ETFs/indices: \texttt{XLK}, \texttt{XLC}, \texttt{XLY}, \texttt{XLF}, \texttt{SPY}, \texttt{QQQ}
+  \item Earnings dates and dividends (where available).
+\end{itemize}
+
+\subsection{Edge Cases Handled}
+\begin{itemize}[leftmargin=1.2em]
+  \item \texttt{SPY} and \texttt{QQQ} had empty source \texttt{underlying.parquet}; fallback Yahoo OHLCV/dividend reconstruction was implemented.
+  \item Earnings API limit and unavailable earnings were handled gracefully.
+\end{itemize}
+
+\section{Feature Engineering}
+Script: \texttt{build\_panel\_features\_with\_vix.py}
+
+\subsection{Computed Features}
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Options features} (\texttt{feat\_01}--\texttt{feat\_26}): put/call ratios, IV signals, activity/microstructure, gamma/charm exposures, 0DTE, implied skew/kurtosis proxy.
+  \item \textbf{Stock/macro controls} (\texttt{feat\_27}--\texttt{feat\_42}): returns, HV, RSI, MACD, Bollinger, ATR, VIX controls, rates, sector ETF returns.
+  \item \textbf{Event/temporal} (\texttt{feat\_43}--\texttt{feat\_48}): days to earnings/dividend/OpEx, earnings flag, weekday, quarter-end.
+  \item \texttt{feat\_49} sentiment is intentionally left NaN (excluded).
+\end{itemize}
+
+\subsection{Targets}
+\[
+target\_r\_{t+1}=\frac{P_{t+1}}{P_t}-1,\quad
+target\_direction\_{t+1}=\mathbb{1}(target\_r\_{t+1}>0)
+\]
+
+\section{Preprocessing}
+Script: \texttt{preprocess\_panel\_training\_data.py}
+
+\subsection{Operations}
+\begin{enumerate}[leftmargin=1.2em]
+  \item numeric coercion and inf cleanup,
+  \item anomaly cleanup for bounded features (spread/IV/rank/0DTE),
+  \item target+ID filtering,
+  \item temporal split by date (60/20/20) before imputation,
+  \item train-only winsorization (0.1\%, 99.9\%),
+  \item train-only median imputation (ticker then global, then 0 fallback),
+  \item final drop if any required column still NaN.
+\end{enumerate}
+
+\subsection{Quality Report Snapshot}
+From \texttt{panel\_data\_quality\_report\_no\_sentiment.json}:
+\begin{itemize}[leftmargin=1.2em]
+  \item rows before: 71{,}707
+  \item rows after final preprocessing: 71{,}693
+  \item NaNs (features+targets) before: 667{,}804
+  \item NaNs (features+targets) after: 0
+  \item splits: train 36{,}216 / val 17{,}095 / test 18{,}382
+\end{itemize}
+
+\section{Model Suite Implementation}
+Script: \texttt{train\_panel\_model\_suite.py}
+
+\subsection{Architectures}
+\begin{itemize}[leftmargin=1.2em]
+  \item FFNN: Dense 256-128-64-32 with ReLU + Dropout.
+  \item XGBoost: classifier+regressor.
+  \item TabNet: classifier+regressor with mask-based attention.
+  \item TFT: one-step horizon, 20-day lookback, static categorical ticker/sector.
+\end{itemize}
+
+\subsection{A/B/C Experimental Design}
+\begin{itemize}[leftmargin=1.2em]
+  \item Model A: \texttt{feat\_27..42}
+  \item Model B: \texttt{feat\_01..26}
+  \item Model C: \texttt{feat\_01..48}
+\end{itemize}
+
+\subsection{Regression Results}
+From \texttt{results/panel\_model\_suite/regression\_summary.csv}.
+
+\begin{footnotesize}
+\begin{longtable}{l l r r r r r}
+\toprule
+Architecture & Set & RMSE & MAE & $R^2$ & OOS $R^2$ & Sign Accuracy \\
+\midrule
+\endhead
+FFNN & A & 0.03149 & 0.01791 & -0.00623 & -0.00523 & 0.48455 \\
+TabNet & A & 0.03179 & 0.01808 & -0.02538 & -0.02436 & 0.49157 \\
+XGBoost & A & 0.03689 & 0.02445 & -0.38051 & -0.37914 & 0.48248 \\
+FFNN & B & 0.03142 & 0.01776 & -0.00174 & -0.00074 & 0.52492 \\
+TabNet & B & 0.03153 & 0.01790 & -0.00876 & -0.00776 & 0.49902 \\
+XGBoost & B & 0.05456 & 0.02908 & -2.02032 & -2.01731 & 0.49358 \\
+FFNN & C & 0.03141 & 0.01779 & -0.00079 & 0.00020 & 0.50016 \\
+TabNet & C & 0.03146 & 0.01783 & -0.00425 & -0.00325 & 0.52622 \\
+XGBoost & C & 0.04469 & 0.02810 & -1.02626 & -1.02425 & 0.48488 \\
+TFT & C & 0.02796 & 0.01589 & -0.00248 & -0.00085 & 0.51121 \\
+\bottomrule
+\end{longtable}
+\end{footnotesize}
+
+\subsection{Classification Results}
+From \texttt{results/panel\_model\_suite/classification\_summary.csv}.
+
+\begin{footnotesize}
+\begin{longtable}{l l r r r r r}
+\toprule
+Architecture & Set & Accuracy & Precision & Recall & F1 & AUC \\
+\midrule
+\endhead
+FFNN & A & 0.48852 & 0.52375 & 0.29562 & 0.37793 & 0.49512 \\
+TabNet & A & 0.51186 & 0.53438 & 0.55346 & 0.54375 & 0.51054 \\
+XGBoost & A & 0.48787 & 0.53502 & 0.19532 & 0.28617 & 0.49576 \\
+FFNN & B & 0.52143 & 0.52536 & 0.92630 & 0.67046 & 0.50768 \\
+TabNet & B & 0.52568 & 0.52731 & 0.94141 & 0.67598 & 0.50538 \\
+XGBoost & B & 0.50702 & 0.52888 & 0.56764 & 0.54758 & 0.50363 \\
+FFNN & C & 0.50196 & 0.52649 & 0.52055 & 0.52350 & 0.50480 \\
+TabNet & C & 0.52176 & 0.52715 & 0.87413 & 0.65768 & 0.51269 \\
+XGBoost & C & 0.49026 & 0.53312 & 0.24242 & 0.33329 & 0.50392 \\
+\bottomrule
+\end{longtable}
+\end{footnotesize}
+
+\subsection{Benchmark Results}
+From \texttt{results/panel\_model\_suite/benchmark\_summary.csv}.
+\begin{itemize}[leftmargin=1.2em]
+  \item naive zero, historical mean, OLS-full, OLS-BS-only, single-signal predictors.
+\end{itemize}
+
+\section{Explainability Outputs Produced}
+\begin{itemize}[leftmargin=1.2em]
+  \item \texttt{xgb\_model\_c\_shap\_importance.csv}
+  \item \texttt{ffnn\_model\_c\_shap\_importance.csv}
+  \item \texttt{tabnet\_model\_c\_attention\_importance.csv}
+\end{itemize}
+Top consensus-style features included options activity, rates, volatility, and event timing dimensions.
+
+\section{Future Plans: Implemented One by One}
+Script: \texttt{implement\_panel\_future\_plans.py}
+
+\subsection{Items Implemented}
+All listed below were implemented and executed:
+\begin{enumerate}[leftmargin=1.2em]
+  \item rolling-window evaluation (panel A/B/C),
+  \item SHAP global/dependence/interaction/local analyses,
+  \item regime-conditional feature-shift analysis (5 regime definitions attempted),
+  \item Diebold-Mariano and Clark-West tests,
+  \item SHAP rank bootstrap confidence intervals,
+  \item split conformal prediction intervals,
+  \item cross-method explainability consensus table.
+\end{enumerate}
+
+\subsection{Generated Files}
+In \texttt{results/panel\_future\_plans/}:\\
+\texttt{rolling\_window\_panel\_xgb\_abc.csv}, \texttt{rolling\_window\_panel\_xgb\_abc\_summary.csv},\\
+\texttt{stat\_tests\_dm\_cw.csv}, \texttt{xgb\_model\_c\_global\_shap.csv},\\
+\texttt{xgb\_model\_c\_shap\_dependence\_stats.csv}, \texttt{xgb\_model\_c\_top\_shap\_interactions.csv},\\
+\texttt{xgb\_model\_c\_local\_explanations\_top\_residuals.csv}, \texttt{xgb\_model\_c\_shap\_rank\_bootstrap\_ci.csv},\\
+\texttt{regime\_summary.csv} + per-regime shift files,\\
+\texttt{conformal\_summary.csv}, \texttt{conformal\_intervals\_alpha\_0.1.csv}, \texttt{conformal\_intervals\_alpha\_0.2.csv},\\
+\texttt{cross\_method\_explainability\_consensus.csv}, \texttt{future\_plans\_run\_summary.json}.
+
+\subsection{Selected Future-Plan Results}
+
+\paragraph{Rolling-window summary (means)}
+\begin{itemize}[leftmargin=1.2em]
+  \item A\_stock: mean AUC 0.5166, mean RMSE 0.0381
+  \item B\_options: mean AUC 0.5022, mean RMSE 0.0325
+  \item C\_all: mean AUC 0.5190, mean RMSE 0.0391
+\end{itemize}
+
+\paragraph{DM/CW tests}
+\begin{itemize}[leftmargin=1.2em]
+  \item DM A vs B, A vs C, B vs C: p-values approximately 0 in this run.
+  \item CW (A nested in C): statistic 1.4888, one-sided p-value 0.0683.
+\end{itemize}
+
+\paragraph{Conformal coverage}
+\begin{itemize}[leftmargin=1.2em]
+  \item $\alpha=0.1$ target 0.9 $\rightarrow$ empirical 0.7946
+  \item $\alpha=0.2$ target 0.8 $\rightarrow$ empirical 0.6379
+\end{itemize}
+
+\section{Code Snippets (Core)}
+\begin{lstlisting}[language=Python]
+# leakage-safe split then train-only transform
+train_df, val_df, test_df = temporal_split_by_date(df, train_frac=0.6, val_frac=0.2)
+train_df, val_df, test_df = winsorize_with_train_quantiles(train_df, val_df, test_df, feature_cols)
+train_df, val_df, test_df, _ = impute_split_from_train(train_df, val_df, test_df, feature_cols)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# future-plan significance tests
+tests.append({"comparison": "A_vs_B", **dm_test(y_test, preds_reg["A_stock"], preds_reg["B_options"])})
+tests.append({"comparison": "CW_A_nested_in_C", **clark_west_test(y_test, preds_reg["A_stock"], preds_reg["C_all"])})
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+# SHAP interaction extraction (XGB Model C)
+inter = ex.shap_interaction_values(X_test_c[idx_int])
+pair_rows.append((cols_c[i], cols_c[j], float(np.mean(np.abs(inter[:, i, j])))))
+\end{lstlisting}
+
+\section{Implementation Completeness Statement}
+Within this repository scope, the requested future-plan mechanisms were implemented and executed.
+The concrete outputs are present under \texttt{results/panel\_future\_plans/}.  
+Any remaining refinement would be in depth/quality improvements (e.g., heavier TFT interpretability export standardization, stricter portfolio-level P\&L simulation protocol), not missing implementation steps.
+
+\end{document}
