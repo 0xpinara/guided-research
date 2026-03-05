@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+.venv/
+
+data/raw/
+data/processed/
+
+# Keep report assets small and code-focused in git.
+results/
+lightning_logs/
