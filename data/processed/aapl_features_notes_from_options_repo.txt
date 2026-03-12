@@ -1,0 +1,1 @@
+Notes:\n- Features 25/26 use model-free BKM-style approximation from OTM option prices and strike integration.\n- Feature 22 uses historical shares outstanding when Yahoo provides it; otherwise constant fallback.\n- Feature 23 uses Black-Scholes charm with call/put directional sign aggregation.\n- Feature 49 is intentionally left NaN (sentiment pipeline not added yet).\n

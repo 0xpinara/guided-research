@@ -1,0 +1,105 @@
+{
+  "input_file": "/Users/pa/Desktop/guided/data/processed/panel/panel_features_all_tickers.parquet",
+  "rows_before_cleaning": 71707,
+  "rows_after_target_and_id_filter": 71693,
+  "rows_after_final_preprocessing": 71693,
+  "rows_removed_total": 14,
+  "feature_count_used_no_sentiment": 48,
+  "target_columns": [
+    "target_r_t_plus_1",
+    "target_direction_t_plus_1"
+  ],
+  "nan_counts_before_total_features_targets": 667804,
+  "nan_counts_after_total_features_targets": 0,
+  "anomalies_before": {
+    "bad_feat_24_outside_0_1_5": 0,
+    "bad_feat_18_negative_spread": 2,
+    "bad_feat_06_iv_nonpositive_or_gt5": 0,
+    "bad_feat_07_outside_0_1": 0
+  },
+  "anomalies_after_domain_cleanup": {
+    "bad_feat_24_outside_0_1_5": 0,
+    "bad_feat_18_negative_spread": 0,
+    "bad_feat_06_iv_nonpositive_or_gt5": 0,
+    "bad_feat_07_outside_0_1": 0
+  },
+  "split_rows": {
+    "train": 36216,
+    "val": 17095,
+    "test": 18382
+  },
+  "split_date_ranges": {
+    "train": [
+      "1999-11-01 00:00:00+00:00",
+      "2015-07-07 00:00:00+00:00"
+    ],
+    "val": [
+      "2015-07-08 00:00:00+00:00",
+      "2020-09-24 00:00:00+00:00"
+    ],
+    "test": [
+      "2020-09-25 00:00:00+00:00",
+      "2025-12-18 00:00:00+00:00"
+    ]
+  },
+  "imputation": {
+    "features_with_all_nan_in_train": [],
+    "global_median_snapshot": {
+      "feat_01_put_call_volume_ratio": 0.7201737573119811,
+      "feat_02_put_call_open_interest_ratio": 0.6846541664634593,
+      "feat_03_options_to_stock_volume_ratio": 0.28913552632209705,
+      "feat_04_net_delta_exposure": 17069.164637546986,
+      "feat_05_volume_weighted_avg_iv": 0.26835700067948515,
+      "feat_06_atm_iv": 0.25374104490405636,
+      "feat_07_iv_rank_52w_percentile": 0.31522434940028743,
+      "feat_08_iv_skew_25delta": 0.0487699955701828,
+      "feat_09_iv_term_structure_slope": -0.009749993681907654,
+      "feat_10_atm_iv_change_1d": -0.0002851945422022162,
+      "feat_11_atm_iv_change_5d": -0.00021163781707580695,
+      "feat_12_iv_minus_realized_vol_30d": -0.004984316435674957,
+      "feat_13_volume_spike_indicator": 0.8527713343896524,
+      "feat_14_open_interest_change_1d": 3346.5,
+      "feat_15_otm_volume_concentration": 0.35031160176759024,
+      "feat_16_call_volume_skew": 1.015497695762926,
+      "feat_17_put_volume_skew": 1.2728266148615832,
+      "feat_18_volume_weighted_avg_spread": 0.05062471187542479,
+      "feat_19_spread_change_1d": 0.00042250289134089167,
+      "feat_20_volume_weighted_moneyness": 0.9997331937004499,
+      "feat_21_estimated_dealer_gamma_gex": 63604090.57012695,
+      "feat_22_gex_pct_market_cap": 7.954821859937019e-05,
+      "feat_23_charm_exposure": -787711221.8152106,
+      "feat_24_0dte_volume_share": 0.0,
+      "feat_25_options_implied_skewness": -0.8642759709215975,
+      "feat_26_options_implied_kurtosis": 4.41489684181469,
+      "feat_27_stock_1d_return": 0.00032594524119944346,
+      "feat_28_stock_5d_return": 0.0034344590726962387,
+      "feat_29_stock_10d_return": 0.007185542362382336,
+      "feat_30_hv_10d": 0.3232228679835364,
+      "feat_31_hv_30d": 0.35920662041082924,
+      "feat_32_rsi_14d": 52.406850914858296,
+      "feat_33_macd": 0.1581748686805966,
+      "feat_34_macd_signal": 0.15718322586916772,
+      "feat_35_bollinger_position": 0.5707355987011402,
+      "feat_36_distance_from_50sma_pct": 1.6065432505003807,
+      "feat_37_atr_14d": 1.3132252337617993,
+      "feat_38_vix_close": 17.84000015258789,
+      "feat_39_vix_5d_change": -0.14999961853027344,
+      "feat_40_vix_term_structure_slope": -1.7599992752075195,
+      "feat_41_risk_free_rate_3m": 0.0005999999865889549,
+      "feat_42_sector_etf_daily_return": 0.0008740846187893503,
+      "feat_43_days_to_next_earnings": 50.0,
+      "feat_44_earnings_within_7d_flag": 0.0,
+      "feat_45_days_to_ex_dividend": 245.0,
+      "feat_46_day_of_week": 2.0,
+      "feat_47_days_to_monthly_opex": 14.0,
+      "feat_48_quarter_end_flag": 0.0
+    }
+  },
+  "output_files": {
+    "clean": "/Users/pa/Desktop/guided/data/processed/panel/training_ready/panel_model_dataset_no_sentiment_clean.parquet",
+    "train": "/Users/pa/Desktop/guided/data/processed/panel/training_ready/panel_train_no_sentiment.parquet",
+    "val": "/Users/pa/Desktop/guided/data/processed/panel/training_ready/panel_val_no_sentiment.parquet",
+    "test": "/Users/pa/Desktop/guided/data/processed/panel/training_ready/panel_test_no_sentiment.parquet",
+    "ticker_coverage": "/Users/pa/Desktop/guided/data/processed/panel/training_ready/panel_training_ticker_coverage.csv"
+  }
+}

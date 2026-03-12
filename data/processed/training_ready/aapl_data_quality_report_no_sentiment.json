@@ -1,0 +1,41 @@
+{
+  "input_file": "/Users/pa/Desktop/guided/data/processed/aapl_features_daily_from_options_repo.parquet",
+  "rows_before_cleaning": 2756,
+  "rows_after_cleaning_no_sentiment": 2707,
+  "rows_removed": 49,
+  "date_min": "2015-02-13 00:00:00+00:00",
+  "date_max": "2025-12-15 00:00:00+00:00",
+  "feature_count_total": 49,
+  "feature_count_used_no_sentiment": 48,
+  "anomalies": {
+    "dup_dates": 0,
+    "bad_feat_24_outside_0_1_5": 0,
+    "bad_feat_18_negative_spread": 0,
+    "bad_feat_06_iv_nonpositive_or_gt5": 0
+  },
+  "split_rows": {
+    "train": 1624,
+    "val": 541,
+    "test": 542
+  },
+  "split_date_ranges": {
+    "train": [
+      "2015-02-13 00:00:00+00:00",
+      "2021-08-18 00:00:00+00:00"
+    ],
+    "val": [
+      "2021-08-19 00:00:00+00:00",
+      "2023-10-12 00:00:00+00:00"
+    ],
+    "test": [
+      "2023-10-13 00:00:00+00:00",
+      "2025-12-15 00:00:00+00:00"
+    ]
+  },
+  "output_files": {
+    "clean": "/Users/pa/Desktop/guided/data/processed/training_ready/aapl_model_dataset_no_sentiment_clean.parquet",
+    "train": "/Users/pa/Desktop/guided/data/processed/training_ready/aapl_train_no_sentiment.parquet",
+    "val": "/Users/pa/Desktop/guided/data/processed/training_ready/aapl_val_no_sentiment.parquet",
+    "test": "/Users/pa/Desktop/guided/data/processed/training_ready/aapl_test_no_sentiment.parquet"
+  }
+}

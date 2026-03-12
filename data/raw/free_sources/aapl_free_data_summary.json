@@ -1,0 +1,15 @@
+{
+  "date_generated_utc": "2026-03-03T18:26:46.739438+00:00",
+  "rows": {
+    "aapl_stock_ohlcv_1d_yahoo": 734,
+    "aapl_options_snapshot_yahoo": 2586,
+    "aapl_dividends_yahoo": 90,
+    "aapl_earnings_dates_yahoo": 50,
+    "vix_ohlcv_1d_yahoo": 734,
+    "vix3m_ohlcv_1d_yahoo": 734,
+    "irx_ohlcv_1d_yahoo": 734,
+    "xlk_ohlcv_1d_yahoo": 734
+  },
+  "failed_option_expiries": [],
+  "critical_gap": "Free Yahoo endpoints do not provide a full historical daily options chain with historical IV/OI/bid/ask by contract. You now have a current-chain snapshot, not a full backfilled history."
+}
