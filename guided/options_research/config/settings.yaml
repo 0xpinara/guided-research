@@ -1,0 +1,243 @@
+# === TICKER UNIVERSE (60 tickers) ===
+tickers:
+  tech: [AAPL, MSFT, NVDA, AMD, META, NFLX, GOOG, CRM, ADBE, CSCO, AVGO, ORCL]
+  financials: [JPM, GS, BAC, C, WFC, V, MA, MS, BLK, AXP]
+  healthcare: [JNJ, UNH, PFE, LLY, ABBV, MRK, AMGN, TMO]
+  consumer_discretionary: [HD, MCD, AMZN, NKE, LOW, TSLA]
+  consumer_staples: [WMT, KO, PEP, PG, COST]
+  energy: [XOM, CVX, COP]
+  industrials: [BA, CAT, HON, GE, DE, LMT]
+  communication: [DIS, CMCSA, T]
+  utilities: [NEE, DUK, SO]
+  real_estate: [AMT]
+  etfs: [SPY, QQQ, IWM]
+
+sector_etfs:
+  tech: XLK
+  financials: XLF
+  healthcare: XLV
+  consumer_discretionary: XLY
+  consumer_staples: XLP
+  energy: XLE
+  industrials: XLI
+  communication: XLC
+  utilities: XLU
+  real_estate: XLRE
+
+ticker_sector_map:
+  # Tech (12)
+  AAPL: tech
+  MSFT: tech
+  NVDA: tech
+  AMD: tech
+  META: tech
+  NFLX: tech
+  GOOG: tech
+  CRM: tech
+  ADBE: tech
+  CSCO: tech
+  AVGO: tech
+  ORCL: tech
+  # Financials (10)
+  JPM: financials
+  GS: financials
+  BAC: financials
+  C: financials
+  WFC: financials
+  V: financials
+  MA: financials
+  MS: financials
+  BLK: financials
+  AXP: financials
+  # Healthcare (8)
+  JNJ: healthcare
+  UNH: healthcare
+  PFE: healthcare
+  LLY: healthcare
+  ABBV: healthcare
+  MRK: healthcare
+  AMGN: healthcare
+  TMO: healthcare
+  # Consumer Discretionary (6)
+  HD: consumer_discretionary
+  MCD: consumer_discretionary
+  AMZN: consumer_discretionary
+  NKE: consumer_discretionary
+  LOW: consumer_discretionary
+  TSLA: consumer_discretionary
+  # Consumer Staples (5)
+  WMT: consumer_staples
+  KO: consumer_staples
+  PEP: consumer_staples
+  PG: consumer_staples
+  COST: consumer_staples
+  # Energy (3)
+  XOM: energy
+  CVX: energy
+  COP: energy
+  # Industrials (6)
+  BA: industrials
+  CAT: industrials
+  HON: industrials
+  GE: industrials
+  DE: industrials
+  LMT: industrials
+  # Communication (3)
+  DIS: communication
+  CMCSA: communication
+  T: communication
+  # Utilities (3)
+  NEE: utilities
+  DUK: utilities
+  SO: utilities
+  # Real Estate (1)
+  AMT: real_estate
+  # ETFs (3)
+  SPY: etfs
+  QQQ: etfs
+  IWM: etfs
+
+# === DATE RANGE ===
+start_date: "2016-01-01"
+end_date: "2025-12-31"
+
+# === DATA SOURCES ===
+wrds:
+  username: "pinara"
+  hanweck_library: "cboe_opt_hanweck"
+  crsp_library: "crsp"
+  compustat_library: "comp"
+  ff_library: "ff"
+
+yahoo_fallback:
+  vix_ticker: "^VIX"
+  vix3m_ticker: "^VIX3M"
+  tbill_ticker: "^IRX"
+  sector_etfs: [XLK, XLF, XLV, XLY, XLP, XLE, XLI, XLC, XLU, XLRE]
+
+# === OPTIONS FILTERS ===
+options_filters:
+  min_open_interest: 10
+  min_bid: 0.05
+  moneyness_range: [0.80, 1.20]
+  dte_range: [7, 180]
+  min_daily_contracts: 50
+
+# === TARGET DEFINITIONS ===
+targets:
+  horizons: [1, 3, 5]
+  primary_horizon: 3
+  direction_threshold: 0.0
+
+# === TEMPORAL SPLIT ===
+split:
+  method: "temporal"
+  train_frac: 0.60
+  val_frac: 0.20
+  test_frac: 0.20
+
+# === PREPROCESSING ===
+preprocessing:
+  winsorize_quantiles: [0.001, 0.999]
+  impute_strategy: "ticker_median_then_global_median_then_zero"
+  normalize: true
+  normalize_method: "standard"
+
+# === IV SURFACE GRID (Resolution 2) ===
+iv_surface:
+  moneyness_grid: [0.90, 0.95, 1.00, 1.05, 1.10]
+  dte_grid: [30, 60, 90]
+  interpolation: "cubic"
+
+# === CONTRACT TENSOR (Resolution 3) ===
+# Two strategies are built:
+#   1. Per-contract with stratified sampling (300 contracts x 10 features)
+#   2. Per-chain aggregation (20 expiration chains x 16 features)
+# Both are fed to the Set Transformer to compare granularity vs. compression.
+contract_tensor:
+  max_contracts: 300       # budget for stratified per-contract tensors
+  sampling_strategy: "stratified"  # "stratified" or "top_volume"
+  max_chains: 20           # budget for chain-level aggregation
+  contract_features:
+    - moneyness
+    - dte_scaled
+    - is_call
+    - iv
+    - log_volume
+    - log_oi
+    - delta
+    - gamma
+    - vega
+    - spread_pct
+
+# === MODEL HYPERPARAMETERS ===
+models:
+  xgboost:
+    n_estimators: 500
+    max_depth: 6
+    learning_rate: 0.01
+    subsample: 0.8
+    colsample_bytree: 0.8
+    early_stopping_rounds: 50
+    eval_metric_reg: "rmse"
+    eval_metric_clf: "logloss"
+
+  ffnn:
+    layers: [256, 128, 64, 32]
+    activation: "relu"
+    dropout: 0.3
+    batch_size: 512
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    epochs: 200
+    early_stopping_patience: 20
+    scheduler: "cosine"
+
+  tabnet:
+    n_d: 64
+    n_a: 64
+    n_steps: 5
+    gamma: 1.5
+    lambda_sparse: 0.001
+    batch_size: 512
+    max_epochs: 200
+    patience: 20
+
+  tft:
+    hidden_size: 64
+    attention_heads: 4
+    dropout: 0.1
+    lookback_window: 20
+    batch_size: 128
+    max_epochs: 100
+    patience: 15
+    learning_rate: 0.001
+
+  set_transformer:
+    embed_dim: 64
+    num_heads: 4
+    num_induced_points: 32
+    num_encoder_blocks: 2
+    pool_output_dim: 64
+    dropout: 0.1
+    batch_size: 128
+    max_epochs: 100
+    patience: 15
+
+# === EVALUATION ===
+evaluation:
+  rolling_window_size: 252
+  rolling_step: 63
+  conformal_alpha: 0.10
+  bootstrap_iterations: 1000
+  transaction_cost_bps: 5
+
+# === REGIME DEFINITIONS ===
+regimes:
+  vix_high: 25
+  vix_low: 15
+  earnings_proximity_days: 7
+
+# === REPRODUCIBILITY ===
+random_seed: 42
+deterministic: true

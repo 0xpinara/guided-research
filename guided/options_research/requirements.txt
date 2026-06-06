@@ -1,0 +1,30 @@
+# Core
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+PyYAML>=6.0
+
+# Data acquisition
+wrds>=3.1
+yfinance>=0.2.18
+pandas-datareader>=0.10
+
+# Machine learning
+scikit-learn>=1.3
+xgboost>=1.7
+shap>=0.42
+
+# Deep learning
+torch>=2.0
+pytorch-tabnet>=4.0
+
+# Visualization (for notebooks)
+matplotlib>=3.7
+seaborn>=0.12
+
+# Utilities
+pyarrow>=12.0
+tqdm>=4.65
+
+# Testing
+pytest>=7.0

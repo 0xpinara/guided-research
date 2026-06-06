@@ -1,0 +1,20 @@
+Key numbers used in the report
+============================================================
+
+set A            best R²: TabNet_A                       R²=-0.0003  IC=+0.0231  acc=0.545
+set B            best R²: XGBoost_B                      R²=+0.0010  IC=+0.0393  acc=0.547
+set C            best R²: OLS Full                       R²=+0.0001  IC=+nan  acc=0.547
+set candidate_6  best R²: XGBoost_candidate_6            R²=+0.0009  IC=+0.0350  acc=0.547
+set D            best R²: XGBoost_D                      R²=+0.0012  IC=+0.0474  acc=0.547
+
+Statistical tests (A vs C):
+  Clark-West (A vs C)          p=0.2330
+  Diebold-Mariano (A vs C)     p=0.8789
+  McNemar (A vs C)             p=1.0000
+
+Expanding window (XGBoost set C, quarterly):
+  oos_r2             mean=-0.0450  median=-0.0076  std=0.1332
+  ic                 mean=+0.0410  median=+0.0446  std=0.0666
+  accuracy           mean=+0.5301  median=+0.5375  std=0.0488
+  sharpe_ratio       mean=+2.5232  median=+3.0794  std=3.0980
+  windows            n=135

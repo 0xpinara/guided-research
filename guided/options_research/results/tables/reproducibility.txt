@@ -1,0 +1,13 @@
+==========================================================================
+REPRODUCIBILITY CHECK (seeds pinned: random_state=42)
+==========================================================================
+cell                                meanIC#1  meanIC#2   maxdIC  dPooled  vsSaved
+ElasticNet/D/expanding/h3     0.01858   0.01858  0.00000  0.00000  0.00000
+XGBoost/D/expanding/h3     0.01185   0.01185  0.00000  0.00000  0.00000
+ElasticNet/D/rolling_9m_3m/h5     0.03310   0.03310  0.00000  0.00000  0.00000
+
+worst run-to-run per-window IC diff (determinism): 0.00000
+worst |mean IC fresh - saved grid| (release):      0.00000
+Interpretation: ElasticNetCV is bit-deterministic given the seed; XGBoost's
+only residual variation is float reduction order under threading, bounded
+above by the figure shown. We declare the saved predictions canonical.

@@ -1,0 +1,381 @@
+# Feature definitions with categories and model group assignments
+# Model A: stock + market features (feat_27-42)
+# Model B: options-derived features (feat_01-26)
+# Model C: all features (feat_01-48)
+
+features:
+  # --- OPTIONS SENTIMENT (1-5) ---
+  feat_01:
+    name: put_call_volume_ratio
+    category: options_sentiment
+    model_group: [B, C]
+    candidate_6: true
+  feat_02:
+    name: put_call_oi_ratio
+    category: options_sentiment
+    model_group: [B, C]
+  feat_03:
+    name: options_to_stock_volume_ratio
+    category: options_sentiment
+    model_group: [B, C]
+    candidate_6: true
+  feat_04:
+    name: net_delta_exposure
+    category: options_sentiment
+    model_group: [B, C]
+  feat_05:
+    name: volume_weighted_avg_iv
+    category: options_sentiment
+    model_group: [B, C]
+
+  # --- IMPLIED VOLATILITY SIGNALS (6-12) ---
+  feat_06:
+    name: atm_iv
+    category: iv_signals
+    model_group: [B, C]
+    candidate_6: true
+  feat_07:
+    name: iv_rank
+    category: iv_signals
+    model_group: [B, C]
+  feat_08:
+    name: iv_skew
+    category: iv_signals
+    model_group: [B, C]
+  feat_09:
+    name: iv_term_structure_slope
+    category: iv_signals
+    model_group: [B, C]
+  feat_10:
+    name: iv_change_1d
+    category: iv_signals
+    model_group: [B, C]
+    candidate_6: true
+  feat_11:
+    name: iv_change_5d
+    category: iv_signals
+    model_group: [B, C]
+  feat_12:
+    name: iv_minus_realized_vol
+    category: iv_signals
+    model_group: [B, C]
+    candidate_6: true
+
+  # --- UNUSUAL ACTIVITY (13-17) ---
+  feat_13:
+    name: volume_spike
+    category: unusual_activity
+    model_group: [B, C]
+    candidate_6: true
+  feat_14:
+    name: oi_change
+    category: unusual_activity
+    model_group: [B, C]
+  feat_15:
+    name: otm_volume_concentration
+    category: unusual_activity
+    model_group: [B, C]
+  feat_16:
+    name: call_volume_skew
+    category: unusual_activity
+    model_group: [B, C]
+  feat_17:
+    name: put_volume_skew
+    category: unusual_activity
+    model_group: [B, C]
+
+  # --- OPTIONS MICROSTRUCTURE (18-20) ---
+  feat_18:
+    name: vw_avg_spread
+    category: microstructure
+    model_group: [B, C]
+  feat_19:
+    name: spread_change
+    category: microstructure
+    model_group: [B, C]
+  feat_20:
+    name: vw_moneyness
+    category: microstructure
+    model_group: [B, C]
+
+  # --- DEALER POSITIONING (21-24) ---
+  feat_21:
+    name: gex_estimate
+    category: dealer_positioning
+    model_group: [B, C]
+  feat_22:
+    name: gex_pct_mktcap
+    category: dealer_positioning
+    model_group: [B, C]
+  feat_23:
+    name: charm_exposure
+    category: dealer_positioning
+    model_group: [B, C]
+  feat_24:
+    name: zero_dte_volume_share
+    category: dealer_positioning
+    model_group: [B, C]
+
+  # --- OPTIONS-IMPLIED HIGHER MOMENTS (25-26) ---
+  feat_25:
+    name: implied_skewness
+    category: higher_moments
+    model_group: [B, C]
+  feat_26:
+    name: implied_kurtosis
+    category: higher_moments
+    model_group: [B, C]
+
+  # --- STOCK FEATURES (27-42) ---
+  feat_27:
+    name: ret_1d_lag
+    category: stock_returns
+    model_group: [A, C]
+  feat_28:
+    name: ret_5d_lag
+    category: stock_returns
+    model_group: [A, C]
+  feat_29:
+    name: ret_10d_lag
+    category: stock_returns
+    model_group: [A, C]
+  feat_30:
+    name: hvol_ratio_10d_30d
+    category: stock_volatility
+    model_group: [A, C]
+  feat_31:
+    name: hvol_30d
+    category: stock_volatility
+    model_group: [A, C]
+  feat_32:
+    name: rsi_14
+    category: stock_technical
+    model_group: [A, C]
+  feat_33:
+    name: macd_value
+    category: stock_technical
+    model_group: [A, C]
+  feat_34:
+    name: macd_signal
+    category: stock_technical
+    model_group: [A, C]
+  feat_35:
+    name: bollinger_position
+    category: stock_technical
+    model_group: [A, C]
+  feat_36:
+    name: dist_sma50
+    category: stock_technical
+    model_group: [A, C]
+  feat_37:
+    name: atr_14
+    category: stock_technical
+    model_group: [A, C]
+  feat_38:
+    name: vix_close
+    category: market
+    model_group: [A, C]
+  feat_39:
+    name: vix_5d_change
+    category: market
+    model_group: [A, C]
+  feat_40:
+    name: vix_term_structure
+    category: market
+    model_group: [A, C]
+  feat_41:
+    name: risk_free_rate
+    category: market
+    model_group: [A, C]
+  feat_42:
+    name: sector_etf_return
+    category: market
+    model_group: [A, C]
+
+  # --- EVENT AND TEMPORAL (43-48) ---
+  feat_43:
+    name: days_to_next_earnings
+    category: event
+    model_group: [A, B, C]
+  feat_44:
+    name: earnings_flag
+    category: event
+    model_group: [A, B, C]
+  feat_45:
+    name: days_to_ex_div
+    category: event
+    model_group: [A, B, C]
+  feat_46:
+    name: day_of_week
+    category: temporal
+    model_group: [A, B, C]
+  feat_47:
+    name: days_to_monthly_opex
+    category: temporal
+    model_group: [A, B, C]
+  feat_48:
+    name: quarter_end_flag
+    category: temporal
+    model_group: [A, B, C]
+
+  # --- LITERATURE-DERIVED OPTIONS FEATURES (49-51) ---
+  feat_49:
+    name: cw_parity_deviation
+    category: informed_trading
+    model_group: [B, C]
+    candidate_6: false
+  feat_50:
+    name: opening_trade_pc_ratio
+    category: informed_trading
+    model_group: [B, C]
+    candidate_6: false
+  feat_51:
+    name: implied_earnings_move
+    category: event
+    model_group: [B, C]
+    candidate_6: false
+
+# Feature set definitions for model comparison
+feature_sets:
+  A:
+    description: "Stock + market features only (baseline)"
+    # Pruned: feat_34 (0.963 corr with feat_33)
+    features: [feat_27, feat_28, feat_29, feat_30, feat_31, feat_32, feat_33,
+               feat_35, feat_36, feat_37, feat_38, feat_39, feat_40,
+               feat_41, feat_42, feat_43, feat_44, feat_45, feat_46, feat_47, feat_48]
+  B:
+    description: "Options-derived features only"
+    # Pruned: feat_05 (0.966 corr with feat_06) removed
+    features: [feat_01, feat_02, feat_03, feat_04, feat_06, feat_07,
+               feat_08, feat_09, feat_10, feat_11, feat_12, feat_13, feat_14,
+               feat_15, feat_16, feat_17, feat_18, feat_19, feat_20, feat_21,
+               feat_22, feat_23, feat_24, feat_25, feat_26,
+               feat_43, feat_44, feat_45, feat_46, feat_47, feat_48,
+               feat_49, feat_50, feat_51]
+  C:
+    description: "All features combined"
+    # Pruned: feat_05 (0.966 corr with feat_06), feat_34 (0.963 corr with feat_33)
+    features: [feat_01, feat_02, feat_03, feat_04, feat_06, feat_07,
+               feat_08, feat_09, feat_10, feat_11, feat_12, feat_13, feat_14,
+               feat_15, feat_16, feat_17, feat_18, feat_19, feat_20, feat_21,
+               feat_22, feat_23, feat_24, feat_25, feat_26, feat_27, feat_28,
+               feat_29, feat_30, feat_31, feat_32, feat_33, feat_35,
+               feat_36, feat_37, feat_38, feat_39, feat_40, feat_41, feat_42,
+               feat_43, feat_44, feat_45, feat_46, feat_47, feat_48,
+               feat_49, feat_50, feat_51]
+  candidate_6:
+    description: "Top 6 candidate options features"
+    features: [feat_06, feat_10, feat_01, feat_03, feat_12, feat_13]
+
+  # --- Feature set D: SVI surface representation (industry approach) ---
+  # Uses parametric surface model instead of raw option aggregations.
+  # This is how quant firms represent options data: fit a model to the
+  # surface, then feed model parameters + standardized grid evaluations.
+  # Columns are auto-detected by prefix in the panel (svi_*, iv_*, rr_*, etc.)
+  D:
+    description: "SVI surface params + delta-tau grid + stock features"
+    features:
+      # SVI parameters (5) — surface shape
+      - svi_a
+      - svi_b
+      - svi_rho
+      - svi_m
+      - svi_sigma
+      # SVI dynamics (5) — surface movement
+      - d_svi_a
+      - d_svi_b
+      - d_svi_rho
+      - d_svi_m
+      - d_svi_sigma
+      # Delta-tau grid (20) — standardized IV readings
+      - iv_10dp_1m
+      - iv_25dp_1m
+      - iv_atm_1m
+      - iv_25dc_1m
+      - iv_10dc_1m
+      - iv_10dp_2m
+      - iv_25dp_2m
+      - iv_atm_2m
+      - iv_25dc_2m
+      - iv_10dc_2m
+      - iv_10dp_3m
+      - iv_25dp_3m
+      - iv_atm_3m
+      - iv_25dc_3m
+      - iv_10dc_3m
+      - iv_10dp_6m
+      - iv_25dp_6m
+      - iv_atm_6m
+      - iv_25dc_6m
+      - iv_10dc_6m
+      # Derived surface features (4)
+      - rr_25d_1m
+      - bf_25d_1m
+      - term_slope_atm
+      - wing_spread_1m
+      # Stock + event features (same as set A, feat_34 pruned)
+      - feat_27
+      - feat_28
+      - feat_29
+      - feat_30
+      - feat_31
+      - feat_32
+      - feat_33
+      - feat_35
+      - feat_36
+      - feat_37
+      - feat_38
+      - feat_39
+      - feat_40
+      - feat_41
+      - feat_42
+      - feat_43
+      - feat_44
+      - feat_45
+      - feat_46
+      - feat_47
+      - feat_48
+
+  # --- Representation experiment (headline) ---
+  # Each set adds ONE options-surface representation on top of the SAME
+  # stock/event control block (feat_27-48, identical to set A), so the
+  # marginal lift over set A isolates the representation. Compared against
+  # A (no options), D (full surface, 34) and C (hand-engineered aggregates).
+  repr_svi:
+    description: "SVI parameters + dynamics (10) on stock/event control"
+    features: [svi_a, svi_b, svi_rho, svi_m, svi_sigma,
+               d_svi_a, d_svi_b, d_svi_rho, d_svi_m, d_svi_sigma,
+               feat_27, feat_28, feat_29, feat_30, feat_31, feat_32, feat_33,
+               feat_35, feat_36, feat_37, feat_38, feat_39, feat_40,
+               feat_41, feat_42, feat_43, feat_44, feat_45, feat_46, feat_47, feat_48]
+  repr_grid:
+    description: "Standardized (delta,tau) IV grid + derived (24) on stock/event control"
+    features: [iv_10dp_1m, iv_25dp_1m, iv_atm_1m, iv_25dc_1m, iv_10dc_1m,
+               iv_10dp_2m, iv_25dp_2m, iv_atm_2m, iv_25dc_2m, iv_10dc_2m,
+               iv_10dp_3m, iv_25dp_3m, iv_atm_3m, iv_25dc_3m, iv_10dc_3m,
+               iv_10dp_6m, iv_25dp_6m, iv_atm_6m, iv_25dc_6m, iv_10dc_6m,
+               rr_25d_1m, bf_25d_1m, term_slope_atm, wing_spread_1m,
+               feat_27, feat_28, feat_29, feat_30, feat_31, feat_32, feat_33,
+               feat_35, feat_36, feat_37, feat_38, feat_39, feat_40,
+               feat_41, feat_42, feat_43, feat_44, feat_45, feat_46, feat_47, feat_48]
+  repr_bkm:
+    description: "BKM risk-neutral moments (2) on stock/event control"
+    features: [feat_25, feat_26,
+               feat_27, feat_28, feat_29, feat_30, feat_31, feat_32, feat_33,
+               feat_35, feat_36, feat_37, feat_38, feat_39, feat_40,
+               feat_41, feat_42, feat_43, feat_44, feat_45, feat_46, feat_47, feat_48]
+  # repr_grid_raw: a genuinely model-FREE grid, cubic-interpolated from raw
+  # market quotes (NOT evaluated off the SVI fit), so the SVI-params vs grid
+  # comparison is not circular. 15 moneyness x DTE points + 5 derived.
+  repr_grid_raw:
+    description: "Raw-quote interpolated (moneyness,DTE) IV grid (20) on stock/event control"
+    features: [iv_surf_090_030, iv_surf_090_060, iv_surf_090_090,
+               iv_surf_095_030, iv_surf_095_060, iv_surf_095_090,
+               iv_surf_100_030, iv_surf_100_060, iv_surf_100_090,
+               iv_surf_105_030, iv_surf_105_060, iv_surf_105_090,
+               iv_surf_110_030, iv_surf_110_060, iv_surf_110_090,
+               surface_level, surface_skew_30d, surface_skew_90d,
+               surface_term_atm, surface_curvature_30d,
+               feat_27, feat_28, feat_29, feat_30, feat_31, feat_32, feat_33,
+               feat_35, feat_36, feat_37, feat_38, feat_39, feat_40,
+               feat_41, feat_42, feat_43, feat_44, feat_45, feat_46, feat_47, feat_48]

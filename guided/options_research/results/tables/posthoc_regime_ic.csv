@@ -1,0 +1,8 @@
+regime,state,rank_ic,model,feature_set,horizon
+VIX,low (<=15),0.014579273847660452,XGBoost,D,3
+VIX,normal (15-25),0.006381479666863284,XGBoost,D,3
+VIX,high (>=25),0.00977777574002215,XGBoost,D,3
+Earnings,near (<=7d),-0.003665102515431823,XGBoost,D,3
+Earnings,far (>7d),0.008503294168730894,XGBoost,D,3
+GEX,negative,0.0231646578482278,XGBoost,D,3
+GEX,positive,0.004242346428389986,XGBoost,D,3
