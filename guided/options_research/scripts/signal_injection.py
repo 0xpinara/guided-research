@@ -44,7 +44,7 @@ ROLL_TRAIN, ROLL_TEST, ROLL_STEP = 189, 63, 63
 # scale that should be detected loudly.
 DELTAS = [0.0, 0.003, 0.006, 0.010, 0.019, 0.030, 0.050, 0.080]
 SEEDS = [0, 1, 2]
-MODELS = ["OLS", "XGBoost"]
+MODELS = ["OLS", "ElasticNet", "XGBoost"]
 SCHEME, HORIZON, FEATURE_SET = "expanding", 3, "A"
 
 report_lines = []

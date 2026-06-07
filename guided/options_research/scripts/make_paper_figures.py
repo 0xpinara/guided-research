@@ -173,14 +173,16 @@ ax.axhspan(0.002,0.004, color=GOLD, alpha=0.25, zorder=1,
            label="observed options lift (0.002--0.004)")
 ax.axvline(60, color=BRICK, ls=(0,(4,3)), lw=1.3, zorder=2)
 ax.text(66, ax.get_ylim()[1]*0.78, "this study\n(60 names)", color=BRICK, fontsize=8)
-# crossing at lift 0.004
+# crossing at lift 0.004 (round to the nearest 100 for the annotation; the
+# unrounded value 60*(0.0192/0.004)^2 = 1382 is reported as ~1,400 in the text)
 ncross=60*(pc.mde_t3.iloc[0]/0.004)**2
+ncross_lbl=round(ncross/100)*100
 ax.axvline(ncross, color=TEAL, ls=":", lw=1.6, zorder=2)
-ax.text(ncross+40, ax.get_ylim()[1]*0.55, f"~{ncross:.0f} names\nto detect 0.004",
+ax.text(ncross+40, ax.get_ylim()[1]*0.55, f"~{ncross_lbl:.0f} names\nto detect 0.004",
         color=TEAL, fontsize=8)
 ax.set_xlabel("Cross-section size $N$ (tradeable names)")
 ax.set_ylabel("Minimum detectable IC")
-ax.set_title("Why a 60-name study cannot resolve a 0.004 lift")
+ax.set_title("Minimum detectable IC versus cross-section size")
 ax.set_xlim(0, pc.N.max()); ax.set_ylim(0, pc.mde_t3.iloc[0]*1.05)
 ax.legend(loc="upper right")
 finish(fig,"fig_power.pdf")
@@ -259,10 +261,11 @@ else:
 # results/tables/return_extras.txt; date-block bootstrap 95% CIs)
 # ===========================================================================
 # (cell, high mean, high lo, high hi, low mean, low lo, low hi)
-vrp=[("exp 3d", 0.0308,0.0161,0.0458, -0.0034,-0.0179,0.0111),
-     ("exp 5d", 0.0294,0.0150,0.0435,  0.0136,-0.0008,0.0279),
-     ("roll 3d",0.0241,0.0118,0.0365, -0.0093,-0.0221,0.0034),
-     ("roll 5d",0.0207,0.0078,0.0335, -0.0172,-0.0303,-0.0038)]
+# VRP split at the EXPANDING (trailing, out-of-sample) median -- no look-ahead.
+vrp=[("exp 3d", 0.0312,0.0165,0.0465, -0.0025,-0.0165,0.0125),
+     ("exp 5d", 0.0278,0.0132,0.0419,  0.0156,0.0014,0.0301),
+     ("roll 3d",0.0231,0.0104,0.0356, -0.0104,-0.0233,0.0022),
+     ("roll 5d",0.0190,0.0063,0.0314, -0.0175,-0.0303,-0.0045)]
 fig,ax=plt.subplots(figsize=(6.8,3.5)); x=np.arange(len(vrp)); w=0.38
 hm=[v[1] for v in vrp]; hlo=[v[1]-v[2] for v in vrp]; hhi=[v[3]-v[1] for v in vrp]
 lm=[v[4] for v in vrp]; llo=[v[4]-v[5] for v in vrp]; lhi=[v[6]-v[4] for v in vrp]
@@ -290,8 +293,8 @@ if ts is not None:
         ax.set_yticks(range(len(d))); ax.set_yticklabels(d["label"], fontsize=7.4)
         ax.set_title(("Returns" if tgt=="return" else "Volatility"))
         ax.set_xlabel("share of |TreeSHAP| (%)")
-    fig.suptitle("What the model uses: diffuse macro/technical for returns vs.\n"
-                 "IV-level surface + VIX + earnings for volatility",
+    fig.suptitle("TreeSHAP attribution: diffuse for returns (an option IV on top, "
+                 "but nothing dominates)\nvs. VIX- and IV-level-dominated for volatility",
                  fontsize=9.5, y=1.04, weight="bold", color=INK)
     finish(fig,"fig_treeshap.pdf")
 
@@ -314,10 +317,18 @@ if (TAB/"return_extras.txt").exists():
                label=f"pooled lift {pooled:+.4f}\ncalendar-block 95% CI [{plo:+.4f},{phi:+.4f}], p=0.051")
     ax.axvline(pooled,color=TEAL,lw=1.6,zorder=2)
     ax.axvline(0,color=BRICK,ls=(0,(4,3)),lw=1.2,zorder=2)
+    # show the 0.019 per-cell detection bar on the same axis, so "far below" is
+    # depicted rather than asserted off-screen; the dots then read as a sliver.
+    MDE=0.019
+    ax.axvline(MDE,color=INK,ls=(0,(2,2)),lw=1.4,zorder=2)
+    ax.annotate("per-cell detection\nbar  $0.019$", xy=(MDE,len(rep_lift)-1.4),
+                xytext=(MDE-0.0008,len(rep_lift)-2.4), fontsize=7.4, color=INK,
+                ha="right", va="center")
+    ax.set_xlim(-0.002, MDE*1.10)
     ax.set_xlabel("pooled marginal return-IC lift over control")
-    ax.set_title("Meta-analysis: a tiny, borderline-consistent return lift\n"
-                 "(pooled across cells; far below the 0.019 detection bar)")
-    ax.legend(loc="lower right", fontsize=7.8)
+    ax.set_title("Meta-analysis: a small consistent lift, an order of magnitude\n"
+                 "below the 0.019 per-cell detection bar")
+    ax.legend(loc="center right", fontsize=7.6)
     finish(fig,"fig_meta.pdf")
 
 # ===========================================================================
@@ -326,13 +337,19 @@ if (TAB/"return_extras.txt").exists():
 if (TAB/"signal_injection.csv").exists():
     si=pd.read_csv(TAB/"signal_injection.csv")
     MDE=0.019
-    # XGBoost is the headline (the workhorse used for the return table); OLS, lacking
-    # regularisation against the 59 ticker dummies, dilutes a thin factor in its OOS
-    # variance and is reported in text, not plotted.
-    agg=(si[si.model=="XGBoost"].groupby("delta")
-           .agg(oracle=("oracle_ic","mean"), rec=("recovered_ic","mean"),
-                t=("nw_t","mean"), surv=("survives_t3","sum"),
-                nseed=("survives_t3","size")).reset_index().sort_values("oracle"))
+    # We plot both regularised workhorses: ElasticNet (the model that clears t>3 on
+    # real returns in Table 3) and XGBoost. Both miss a 0.003 factor and only clear
+    # the hurdle near the analytic MDE. OLS, lacking regularisation against the 59
+    # ticker dummies, dilutes a thin factor in its OOS variance and is reported in
+    # text, not plotted.
+    def agg_model(m):
+        return (si[si.model==m].groupby("delta")
+                  .agg(oracle=("oracle_ic","mean"), rec=("recovered_ic","mean"),
+                       t=("nw_t","mean"), surv=("survives_t3","sum"),
+                       nseed=("survives_t3","size")).reset_index().sort_values("oracle"))
+    agg=agg_model("XGBoost")
+    has_en="ElasticNet" in si.model.unique()
+    aen=agg_model("ElasticNet") if has_en else None
     fig,(a1,a2)=plt.subplots(1,2,figsize=(7.8,3.5))
     xmax=agg.oracle.max()*1.05
     # left: recovered vs injected IC, with detection floor + diagonal
@@ -340,26 +357,33 @@ if (TAB/"signal_injection.csv").exists():
     a1.plot([0,xmax],[0,xmax],color="#cfd3da",lw=1,ls=(0,(4,3)),zorder=1,label="perfect recovery")
     a1.axhline(MDE,color=BRICK,lw=1.3,ls=(0,(3,2)),zorder=2,label=f"MDE ($t{{>}}3$) = {MDE}")
     a1.plot(agg.oracle,agg.rec,color=NAVY,lw=1.9,marker="o",ms=5,zorder=3,label="XGBoost recovered")
+    if has_en:
+        a1.plot(aen.oracle,aen.rec,color=GOLD,lw=1.7,ls=(0,(4,2)),marker="D",ms=4.5,
+                zorder=3,label="ElasticNet recovered")
     a1.set_xlabel("Injected (oracle) cross-sectional IC")
     a1.set_ylabel("Recovered walk-forward IC")
     a1.set_title("Recovery tracks the injected effect")
-    a1.legend(loc="upper left",fontsize=7.4); a1.set_xlim(0,xmax)
+    a1.legend(loc="upper left",fontsize=7.0); a1.set_xlim(0,xmax)
     # right: NW t vs injected IC, with t>3 hurdle -- the money plot
     a2.axhspan(0,3,color=GREY,alpha=0.16,zorder=0)
     a2.axhline(3,color=BRICK,lw=1.3,ls=(0,(3,2)),zorder=2,label="$t>3$ hurdle")
-    # colour points by survival
-    a2.plot(agg.oracle,agg.t,color=NAVY,lw=1.9,zorder=3)
+    # XGBoost line, markers coloured by number of seeds clearing t>3
+    a2.plot(agg.oracle,agg.t,color=NAVY,lw=1.9,zorder=3,label="XGBoost $t$")
     a2.scatter(agg.oracle,agg.t,s=42,zorder=4,
                c=[NAVY if s==3 else (GOLD if s>0 else GREY) for s in agg.surv],
                edgecolor=INK,linewidth=0.5)
+    if has_en:
+        a2.plot(aen.oracle,aen.t,color=GOLD,lw=1.7,ls=(0,(4,2)),marker="D",ms=4.5,
+                zorder=3,label="ElasticNet $t$")
     for xv,txt in [(0.0037,"observed\nlift 0.003"),(0.0611,"vol-scale\n0.05")]:
         a2.axvline(xv,color=TEAL,lw=1,ls=":",zorder=1)
         a2.text(xv,a2.get_ylim()[1]*0.50,txt,fontsize=7,color=TEAL,rotation=90,va="center",ha="right")
     a2.set_xlabel("Injected (oracle) cross-sectional IC")
     a2.set_ylabel("Recovered Newey--West $t$")
     a2.set_title("Detected only above the power floor")
-    a2.legend(loc="upper left",fontsize=7.4); a2.set_xlim(0,xmax)
-    fig.suptitle("Signal-injection recovery (XGBoost workhorse): a 0.05 signal is caught at $t\\gg3$, "
+    a2.legend(loc="upper left",fontsize=7.0); a2.set_xlim(0,xmax)
+    models_lbl="ElasticNet and XGBoost" if has_en else "XGBoost workhorse"
+    fig.suptitle(f"Signal-injection recovery ({models_lbl}): a 0.05 signal is caught at $t\\gg3$, "
                  "a 0.003 one is not,\nand the detection threshold coincides with the analytic MDE",
                  fontsize=9.0,y=1.05,weight="bold",color=INK)
     finish(fig,"fig_injection.pdf")

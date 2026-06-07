@@ -73,27 +73,44 @@ def bootstrap_diff(a, b, n_boot=5000, seed=1):
     return a.mean(), ci(a_boot), b.mean(), ci(b_boot), a.mean() - b.mean(), ci(diff), p
 
 
-def regime_analysis(oos, panel):
+def causal_vrp_threshold(panel):
+    """Per-date out-of-sample VRP split threshold: the expanding median of the
+    pooled VRP distribution over all dates STRICTLY BEFORE each date. Computing
+    the threshold only from past data removes the look-ahead in the old
+    full-sample median, which classified each day using the whole test period.
+    Returns a date-indexed Series of thresholds."""
+    g = panel.dropna(subset=["vrp"]).groupby("date")["vrp"]
+    acc = np.array([], dtype=float)
+    thr = {}
+    for dt, arr in g:                       # groupby iterates dates in order
+        thr[dt] = np.median(acc) if acc.size else np.nan
+        acc = np.concatenate([acc, arr.to_numpy(dtype=float)])
+    return pd.Series(thr, name="vrp_thr")
+
+
+def regime_analysis(oos, panel, vrp_thr):
     header("(1) REGIME-CONDITIONAL RETURN IC  (XGBoost/D, date-block bootstrap)")
     emit("Theory: option information should matter more when uncertainty is high")
     emit("(VIX, VRP) and around events (earnings). Conditioning widens the SEs.")
     emit("Design is pre-specified; the split rules are fixed in advance:")
-    emit("  VIX:  high>=25 vs low<=15      VRP: high vs low at the pooled median")
-    emit("  earnings: <=7 days vs farther")
+    emit("  VIX:  high>=25 vs low<=15 (fixed)   earnings: <=7 days vs farther (fixed)")
+    emit("  VRP: high vs low at the EXPANDING (trailing, out-of-sample) median --")
+    emit("       threshold at date t = median of pooled VRP over dates < t (no look-ahead).")
     emit("Family = 3 conditioners x 4 cells = 12 diff tests; Bonferroni alpha=0.05/12=0.0042.\n")
 
     names = {"VIX": "VIX level (high>=25 vs low<=15)",
-             "VRP": "VRP iv-rv (median split)",
+             "VRP": "VRP iv-rv (trailing-median split)",
              "EARN": "earnings (<=7d vs far)"}
     rows = []
     for scheme in ["expanding", "rolling_9m_3m"]:
         for h in [3, 5]:
             d = oos[(oos.feature_set == "D") & (oos.scheme == scheme) & (oos.horizon == h)]
             d = d.merge(panel, on=["ticker", "date"], how="left")
+            d["vrp_thr"] = d["date"].map(vrp_thr)
             emit(f"-- {scheme} h={h} --")
             splits = [
                 ("VIX", d[d.vix >= 25], d[d.vix <= 15]),
-                ("VRP", d[d.vrp > d.vrp.median()], d[d.vrp <= d.vrp.median()]),
+                ("VRP", d[d.vrp > d.vrp_thr], d[d.vrp <= d.vrp_thr]),
                 ("EARN", d[d.days_earn <= 7], d[d.days_earn > 7]),
             ]
             for key, high, low in splits:
@@ -194,7 +211,8 @@ def main():
     panel = panel.rename(columns={"feat_38": "vix", "feat_12": "vrp",
                                   "feat_43": "days_earn", "feat_40": "vix_ts"})
 
-    regime_analysis(oos, panel)
+    vrp_thr = causal_vrp_threshold(panel)
+    regime_analysis(oos, panel, vrp_thr)
     meta_analysis()
 
     (TAB / "return_extras.txt").write_text("\n".join(report_lines))

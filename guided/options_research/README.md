@@ -15,7 +15,7 @@ bar). Three analyses make that null *informative* rather than a failure:
    hurdle is 0.019, so a ~0.004 effect needs ~1,400 names; our null *reconciles*
    with large-universe positives instead of contradicting them.
 2. **Volatility positive control** — the identical pipeline detects a large signal
-   on realised volatility (≈0.04 IC lift, >10 s.e., 158/162 cells surviving `t>3`).
+   on realised volatility (≈0.036 IC lift, >10 s.e., 158/162 cells surviving `t>3`).
 3. **Signal-injection recovery** — injecting a *known* factor and rerunning the same
    walk-forward, the pipeline recovers a 0.05 effect at `t=8.7` but cannot resolve a
    0.003 one, and the experimental detection floor matches the analytic MDE.
@@ -67,18 +67,23 @@ regenerate every figure and number in the paper.
 All models are seeded (`random_state=42`) and deterministic — re-running reproduces
 the saved per-window IC exactly (`scripts/reproducibility_check.py`).
 
-| Paper section | Script |
+Each reported number/table/figure maps to a script:
+
+| Reported result | Script(s) |
 |---|---|
-| Returns walk-forward grid | `scripts/run_full_matrix.py` |
-| Volatility positive control | `scripts/run_vol_matrix.py`, `vol_dissociation.py` |
-| Statistical power / calculator | `scripts/power_analysis.py`, `power_calculator.py` |
-| **Signal-injection recovery** | `scripts/signal_injection.py` |
-| Regime + meta-analysis (joint calendar-block bootstrap) | `scripts/return_extras.py` |
-| Post-hoc corrections (HAC, HLZ `t>3`, deflated Sharpe, PBO) | `scripts/posthoc_stats.py` |
-| TreeSHAP attribution | `scripts/treeshap.py` |
-| ETF-free economics + ETF-free IC | `scripts/etf_free_econ.py` |
-| Run-to-run reproducibility | `scripts/reproducibility_check.py` |
-| All paper figures | `scripts/make_paper_figures.py` |
+| Consolidated IC benchmark (both targets, all sets × models) | `run_full_matrix.py`, `run_vol_matrix.py`, `posthoc_stats.py` |
+| Returns marginal lift over the Set-A control | `run_full_matrix.py`, `posthoc_stats.py` |
+| Volatility positive control + returns-vs-vol dissociation | `run_vol_matrix.py`, `vol_dissociation.py` |
+| Statistical power + shippable calculator | `power_analysis.py`, `power_calculator.py` |
+| **Signal-injection recovery** | `signal_injection.py` |
+| Regime conditioning + meta-analysis (joint calendar-block bootstrap) | `return_extras.py` |
+| Post-hoc corrections (HAC, HLZ `t>3`, deflated Sharpe, PBO) | `posthoc_stats.py` |
+| TreeSHAP attribution | `treeshap.py` |
+| Economics: dollar P&L, deflated Sharpe, PBO, ETF-free IC | `etf_free_econ.py`, `posthoc_stats.py` |
+| Run-to-run reproducibility | `reproducibility_check.py` |
+| All paper figures | `make_paper_figures.py` |
+
+(All scripts live in `scripts/`.)
 
 Metrics land in `results/tables/`. `make_paper_figures.py` writes PDFs to the paper's
 `figures/` directory (path set at the top of the script — point it wherever you like;

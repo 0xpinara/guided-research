@@ -2,26 +2,23 @@
 ============================================================================
 (1) REGIME-CONDITIONAL RETURN IC  (XGBoost/D, date-block bootstrap)
 ============================================================================
-theory: option info should matter more when uncertainty is high (VIX, VRP)
-and around events (earnings). Held to the same bar; conditioning widens SEs.
-PRE-SPECIFIED design (fixed before looking at outcomes):
-  * conditioners = 3 (VIX level, VRP=iv-rv, earnings proximity), theory-chosen
-  * split rules are FIXED ex ante, not tuned to maximise the result:
-      VIX:  high>=25 vs low<=15 (standard stress thresholds)
-      VRP:  high vs low at the POOLED-SAMPLE MEDIAN (a fixed rule)
-      earn: <=7 calendar days to earnings vs farther
-  * cells = 2 schemes x 2 horizons {3,5} = 4 -> family of 3x4 = 12 diff tests.
-    Bonferroni-adjusted bar alpha=0.05/12 = 0.0042 for the high-minus-low diff.
+Theory: option information should matter more when uncertainty is high
+(VIX, VRP) and around events (earnings). Conditioning widens the SEs.
+Design is pre-specified; the split rules are fixed in advance:
+  VIX:  high>=25 vs low<=15 (fixed)   earnings: <=7 days vs farther (fixed)
+  VRP: high vs low at the EXPANDING (trailing, out-of-sample) median --
+       threshold at date t = median of pooled VRP over dates < t (no look-ahead).
+Family = 3 conditioners x 4 cells = 12 diff tests; Bonferroni alpha=0.05/12=0.0042.
 
 -- expanding h=3 --
    VIX level (high>=25 vs low<=15):
       high/near IC=+0.0077 CI[-0.0174,+0.0327]  (n.s. for the high bucket)
       low/far   IC=+0.0075 CI[-0.0122,+0.0277]
       diff=+0.0002 CI[-0.0323,+0.0328] boot p=0.995
-   VRP iv-rv (median split):
-      high/near IC=+0.0308 CI[+0.0161,+0.0458]  (SURVIVES (CI excl 0) for the high bucket)
-      low/far   IC=-0.0034 CI[-0.0179,+0.0111]
-      diff=+0.0342 CI[+0.0135,+0.0550] boot p=0.003
+   VRP iv-rv (trailing-median split):
+      high/near IC=+0.0312 CI[+0.0165,+0.0465]  (SURVIVES (CI excl 0) for the high bucket)
+      low/far   IC=-0.0025 CI[-0.0165,+0.0125]
+      diff=+0.0337 CI[+0.0133,+0.0548] boot p=0.002
    earnings (<=7d vs far):
       high/near IC=+0.0240 CI[-0.0079,+0.0562]  (n.s. for the high bucket)
       low/far   IC=+0.0071 CI[-0.0042,+0.0188]
@@ -31,10 +28,10 @@ PRE-SPECIFIED design (fixed before looking at outcomes):
       high/near IC=+0.0160 CI[-0.0111,+0.0436]  (n.s. for the high bucket)
       low/far   IC=+0.0144 CI[-0.0035,+0.0328]
       diff=+0.0016 CI[-0.0309,+0.0355] boot p=0.916
-   VRP iv-rv (median split):
-      high/near IC=+0.0294 CI[+0.0150,+0.0435]  (SURVIVES (CI excl 0) for the high bucket)
-      low/far   IC=+0.0136 CI[-0.0008,+0.0279]
-      diff=+0.0158 CI[-0.0038,+0.0354] boot p=0.125
+   VRP iv-rv (trailing-median split):
+      high/near IC=+0.0278 CI[+0.0132,+0.0419]  (SURVIVES (CI excl 0) for the high bucket)
+      low/far   IC=+0.0156 CI[+0.0014,+0.0301]
+      diff=+0.0122 CI[-0.0083,+0.0323] boot p=0.232
    earnings (<=7d vs far):
       high/near IC=+0.0635 CI[+0.0309,+0.0970]  (SURVIVES (CI excl 0) for the high bucket)
       low/far   IC=+0.0123 CI[+0.0011,+0.0237]
@@ -44,10 +41,10 @@ PRE-SPECIFIED design (fixed before looking at outcomes):
       high/near IC=+0.0113 CI[-0.0148,+0.0378]  (n.s. for the high bucket)
       low/far   IC=+0.0081 CI[-0.0055,+0.0215]
       diff=+0.0032 CI[-0.0262,+0.0325] boot p=0.812
-   VRP iv-rv (median split):
-      high/near IC=+0.0241 CI[+0.0118,+0.0365]  (SURVIVES (CI excl 0) for the high bucket)
-      low/far   IC=-0.0093 CI[-0.0221,+0.0034]
-      diff=+0.0334 CI[+0.0159,+0.0513] boot p=0.000
+   VRP iv-rv (trailing-median split):
+      high/near IC=+0.0231 CI[+0.0104,+0.0356]  (SURVIVES (CI excl 0) for the high bucket)
+      low/far   IC=-0.0104 CI[-0.0233,+0.0022]
+      diff=+0.0335 CI[+0.0156,+0.0513] boot p=0.001
    earnings (<=7d vs far):
       high/near IC=-0.0030 CI[-0.0322,+0.0260]  (n.s. for the high bucket)
       low/far   IC=+0.0087 CI[-0.0008,+0.0183]
@@ -57,10 +54,10 @@ PRE-SPECIFIED design (fixed before looking at outcomes):
       high/near IC=+0.0134 CI[-0.0120,+0.0391]  (n.s. for the high bucket)
       low/far   IC=-0.0102 CI[-0.0251,+0.0044]
       diff=+0.0236 CI[-0.0063,+0.0531] boot p=0.128
-   VRP iv-rv (median split):
-      high/near IC=+0.0207 CI[+0.0078,+0.0335]  (SURVIVES (CI excl 0) for the high bucket)
-      low/far   IC=-0.0172 CI[-0.0303,-0.0038]
-      diff=+0.0380 CI[+0.0197,+0.0558] boot p=0.000
+   VRP iv-rv (trailing-median split):
+      high/near IC=+0.0190 CI[+0.0063,+0.0314]  (SURVIVES (CI excl 0) for the high bucket)
+      low/far   IC=-0.0175 CI[-0.0303,-0.0045]
+      diff=+0.0366 CI[+0.0190,+0.0543] boot p=0.000
    earnings (<=7d vs far):
       high/near IC=+0.0099 CI[-0.0196,+0.0410]  (n.s. for the high bucket)
       low/far   IC=-0.0032 CI[-0.0133,+0.0073]
@@ -68,26 +65,23 @@ PRE-SPECIFIED design (fixed before looking at outcomes):
 
 -- multiplicity-aware summary (family = 3 conditioners x 4 cells = 12) --
    VIX level (high>=25 vs low<=15) : high-bucket CI>0 in 0/4 cells; diff p<0.05 in 0/4; p<Bonferroni(0.0042) in 0/4
-   VRP iv-rv (median split)        : high-bucket CI>0 in 4/4 cells; diff p<0.05 in 3/4; p<Bonferroni(0.0042) in 3/4
+   VRP iv-rv (trailing-median split): high-bucket CI>0 in 4/4 cells; diff p<0.05 in 3/4; p<Bonferroni(0.0042) in 3/4
    earnings (<=7d vs far)          : high-bucket CI>0 in 1/4 cells; diff p<0.05 in 1/4; p<Bonferroni(0.0042) in 1/4
 
--- VRP gates, VIX level does NOT: evidence AGAINST a dispersion artifact --
-If 'high-VRP days are merely high-dispersion days where anything ranks more
-easily', then VIX LEVEL (the canonical dispersion proxy) would gate the signal
-too. It does not (VIX diffs n.s., p>0.8), while VRP does. The conditioner that
-gates is the options market's PRICE of risk, not raw volatility -- so the
-high-VRP positive is not a mechanical wider-spread-easier-ranking effect.
+VRP gates the signal but VIX level does not (VIX diffs p>0.8). If high-VRP
+days were just high-dispersion days, VIX level would gate it too, so this is
+evidence against a dispersion artifact -- the options price of risk is what
+selects the usable days, not raw volatility.
 
 ============================================================================
 (2) POOLED / META-ANALYTIC RETURN LIFT across all cells (calendar-block boot)
 ============================================================================
 pooled options return-lift over A (all reps x models x cells): +0.0029
-  PRIMARY  calendar-quarter JOINT bootstrap (resampling is joint over every
-           cell that shares a quarter): 95% CI [-0.0000,+0.0059]  p=0.051
+  PRIMARY calendar-quarter joint bootstrap: 95% CI [-0.0000,+0.0059] p=0.051
   effective independent units = 32 calendar quarters,
-           vs 172 nominal cells / 4344 per-window lifts (NOT independent).
+          vs 172 nominal cells / 4344 per-window lifts (not independent).
   SENSITIVITY finer scheme|horizon|window blocks: CI [+0.0008,+0.0048] p=0.002 (n=177)
-per-representation pooled lift (mean across model x scheme x horizon x window):
+per-representation pooled lift:
    B              +0.0040  (n=670)
    C              +0.0026  (n=670)
    D              +0.0021  (n=604)
@@ -97,7 +91,6 @@ per-representation pooled lift (mean across model x scheme x horizon x window):
    repr_grid_raw  +0.0026  (n=449)
    repr_bkm       -0.0006  (n=451)
 
-interpretation: a meta-analysis pools power across underpowered cells; it can
-only surface a CONSISTENT small lift. Resampling CALENDAR blocks jointly across
-all cells -- not cells independently -- keeps the p-value honest despite the
-strong cross-cell dependence (overlapping dates, near-duplicate representations).
+A meta-analysis can only surface a consistent small lift; resampling calendar
+blocks jointly across cells keeps the p-value honest given the shared dates
+and near-duplicate representations.
