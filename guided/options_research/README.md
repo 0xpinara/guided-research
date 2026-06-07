@@ -15,7 +15,7 @@ bar). Three analyses make that null *informative* rather than a failure:
    hurdle is 0.019, so a ~0.004 effect needs ~1,400 names; our null *reconciles*
    with large-universe positives instead of contradicting them.
 2. **Volatility positive control** — the identical pipeline detects a large signal
-   on realised volatility (≈0.05 IC, >10 s.e., 158/162 cells surviving `t>3`).
+   on realised volatility (≈0.04 IC lift, >10 s.e., 158/162 cells surviving `t>3`).
 3. **Signal-injection recovery** — injecting a *known* factor and rerunning the same
    walk-forward, the pipeline recovers a 0.05 effect at `t=8.7` but cannot resolve a
    0.003 one, and the experimental detection floor matches the analytic MDE.

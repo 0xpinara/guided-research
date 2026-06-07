@@ -1,23 +1,14 @@
-"""Reproducibility check for the released benchmark.
+"""Reproducibility check.
 
-"Honest benchmark" is the paper's pitch, so run-to-run determinism matters: a
-referee who reruns and gets materially different ICs would undermine the claim
-more than any Sharpe wobble. The workhorse models are already seeded
-(random_state=42 for ElasticNetCV and XGBoost), so this script *measures* the
-residual variation rather than introducing seeds:
-
-  (a) determinism  -- fit the SAME cell twice in one process and report the max
-      absolute per-window IC difference and the pooled-IC difference;
-  (b) release reproducibility -- compare a fresh re-fit to the saved grid
-      (full_matrix_walkforward_windows.csv) for the same cell.
-
-The conclusion the paper cites is whatever this prints: seeds pinned, saved
-predictions canonical, run-to-run IC variation below the stated magnitude.
-CPU-only. Writes reproducibility.txt.
+The workhorse models are seeded (random_state=42), so this script measures how much
+the per-window IC actually varies between runs. For a few cells it (a) fits the same
+cell twice in one process and compares, and (b) compares a fresh fit against the
+saved grid in full_matrix_walkforward_windows.csv. Writes reproducibility.txt.
 """
 from __future__ import annotations
 
-import os, sys
+import os
+import sys
 from pathlib import Path
 
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -38,75 +29,114 @@ from src.utils.config import load_config, load_feature_defs
 from src.utils.io_helpers import load_parquet, FEATURES_DIR, SPLITS_DIR, RESULTS_DIR
 
 TAB = RESULTS_DIR / "tables"
-EXP_MIN_TRAIN, EXP_STEP, ROLL_TRAIN, ROLL_TEST, ROLL_STEP = 504, 63, 189, 63, 63
-CELLS = [("ElasticNet", "D", "expanding", 3),
-         ("XGBoost",    "D", "expanding", 3),
-         ("ElasticNet", "D", "rolling_9m_3m", 5)]
-out = []
-def P(*a): s = " ".join(str(x) for x in a); out.append(s); print(s)
+EXP_MIN_TRAIN, EXP_STEP = 504, 63
+ROLL_TRAIN, ROLL_TEST, ROLL_STEP = 189, 63, 63
+
+CELLS = [
+    ("ElasticNet", "D", "expanding", 3),
+    ("XGBoost", "D", "expanding", 3),
+    ("ElasticNet", "D", "rolling_9m_3m", 5),
+]
+
+report_lines = []
 
 
-def run_cell(model, fs, scheme, h, panel, tcols, cfg, feat_defs):
-    ph = panel.dropna(subset=[f"ret_{h}d"]).reset_index(drop=True)
-    feat = _resolve_feature_ids(feat_defs, fs, ph.columns.tolist())
-    X = ph[feat + tcols].to_numpy(np.float32, na_value=np.nan); np.nan_to_num(X, copy=False)
-    dates = ph["date"].to_numpy(); tk = ph["ticker"].to_numpy()
-    raw = ph[f"ret_{h}d"].to_numpy(np.float64, na_value=np.nan)
-    y = _cross_sectional_demean(raw, dates); np.nan_to_num(y, copy=False)
-    uniq = np.sort(np.unique(dates))
-    wins = _window_ranges(scheme, uniq, EXP_MIN_TRAIN, EXP_STEP, ROLL_TRAIN, ROLL_TEST, ROLL_STEP)
+def emit(*args):
+    line = " ".join(str(a) for a in args)
+    report_lines.append(line)
+    print(line)
+
+
+def window_ics(model, feature_set, scheme, h, panel, ticker_cols, cfg, feat_defs):
+    """Run one walk-forward cell and return its per-window IC series."""
+    sub = panel.dropna(subset=[f"ret_{h}d"]).reset_index(drop=True)
+    feat_ids = _resolve_feature_ids(feat_defs, feature_set, sub.columns.tolist())
+    X = sub[feat_ids + ticker_cols].to_numpy(np.float32, na_value=np.nan)
+    np.nan_to_num(X, copy=False)
+    dates = sub["date"].to_numpy()
+    tickers = sub["ticker"].to_numpy()
+    raw = sub[f"ret_{h}d"].to_numpy(np.float64, na_value=np.nan)
+    y = _cross_sectional_demean(raw, dates)
+    np.nan_to_num(y, copy=False)
+
+    unique_dates = np.sort(np.unique(dates))
+    windows = _window_ranges(scheme, unique_dates, EXP_MIN_TRAIN, EXP_STEP,
+                             ROLL_TRAIN, ROLL_TEST, ROLL_STEP)
+    params = vars(cfg.models.xgboost) if model == "XGBoost" else {}
+
     ics = []
-    for (ts, te, vs, ve) in wins:
-        tb = uniq[ts:te]
-        if len(tb) > h: tb = tb[:-h]
-        trm = np.isin(dates, list(set(tb))); tem = np.isin(dates, list(set(uniq[vs:ve])))
-        if trm.sum() == 0 or tem.sum() == 0: continue
-        params = vars(cfg.models.xgboost) if model == "XGBoost" else {}
-        pred, yt, _, _, _ = _predict_window(model, params, X, y, raw, tk, dates, trm, tem)
-        ics.append(spearmanr(yt, pred)[0] if len(pred) > 10 else np.nan)
+    for train_start, train_end, test_start, test_end in windows:
+        train_dates = unique_dates[train_start:train_end]
+        if len(train_dates) > h:
+            train_dates = train_dates[:-h]
+        train_mask = np.isin(dates, list(set(train_dates)))
+        test_mask = np.isin(dates, list(set(unique_dates[test_start:test_end])))
+        if train_mask.sum() == 0 or test_mask.sum() == 0:
+            continue
+        pred, truth, _, _, _ = _predict_window(
+            model, params, X, y, raw, tickers, dates, train_mask, test_mask)
+        ics.append(spearmanr(truth, pred)[0] if len(pred) > 10 else np.nan)
     return np.array(ics, float)
 
 
-def main():
-    cfg = load_config(); feat_defs = load_feature_defs()
+def load_panel():
     panel = load_parquet(FEATURES_DIR / "resolution_1_scalar" / "panel_unnormalized.parquet")
     splits = load_parquet(SPLITS_DIR / "split_indices.parquet")
-    for df in (panel, splits): df["date"] = pd.to_datetime(df["date"])
+    for df in (panel, splits):
+        df["date"] = pd.to_datetime(df["date"])
     panel = panel.merge(splits, on=["ticker", "date"], how="inner")
-    rg = FEATURES_DIR / "resolution_2_surface" / "surface_features_all.parquet"
-    if rg.exists():
-        r = load_parquet(rg); r["date"] = pd.to_datetime(r["date"])
-        cols = [c for c in r.columns if c.startswith("iv_surf_") or c.startswith("surface_")]
-        panel = panel.merge(r[["ticker", "date"] + cols].drop_duplicates(["ticker", "date"]),
+
+    surface = FEATURES_DIR / "resolution_2_surface" / "surface_features_all.parquet"
+    if surface.exists():
+        s = load_parquet(surface)
+        s["date"] = pd.to_datetime(s["date"])
+        cols = [c for c in s.columns if c.startswith("iv_surf_") or c.startswith("surface_")]
+        panel = panel.merge(s[["ticker", "date"] + cols].drop_duplicates(["ticker", "date"]),
                             on=["ticker", "date"], how="left")
     panel = panel.sort_values(["ticker", "date"]).reset_index(drop=True)
-    tcols = _add_ticker_encoding(panel)
+    ticker_cols = _add_ticker_encoding(panel)
+    return panel, ticker_cols
 
+
+def main():
+    cfg = load_config()
+    feat_defs = load_feature_defs()
+    panel, ticker_cols = load_panel()
     saved = pd.read_csv(TAB / "full_matrix_walkforward_windows.csv")
 
-    P("=" * 74); P("REPRODUCIBILITY CHECK (seeds pinned: random_state=42)"); P("=" * 74)
-    P(f"{'cell':34}{'meanIC#1':>10}{'meanIC#2':>10}{'maxdIC':>9}{'dPooled':>9}{'vsSaved':>9}")
-    worst_det = 0.0; worst_saved = 0.0
-    for model, fs, scheme, h in CELLS:
-        a = run_cell(model, fs, scheme, h, panel, tcols, cfg, feat_defs)
-        b = run_cell(model, fs, scheme, h, panel, tcols, cfg, feat_defs)
-        n = min(len(a), len(b)); a, b = a[:n], b[:n]
-        max_d = float(np.nanmax(np.abs(a - b))) if n else np.nan
-        pooled_d = float(abs(np.nanmean(a) - np.nanmean(b)))
-        sv = saved[(saved.model == model) & (saved.feature_set == fs) &
-                   (saved.scheme == scheme) & (saved.horizon == h)]["ic"].to_numpy()
-        vs_saved = float(abs(np.nanmean(a) - np.nanmean(sv))) if len(sv) else np.nan
-        worst_det = max(worst_det, max_d if np.isfinite(max_d) else 0.0)
-        worst_saved = max(worst_saved, vs_saved if np.isfinite(vs_saved) else 0.0)
-        P(f"{model}/{fs}/{scheme}/h{h:<3}"
-          f"{np.nanmean(a):>10.5f}{np.nanmean(b):>10.5f}{max_d:>9.5f}{pooled_d:>9.5f}{vs_saved:>9.5f}")
-    P("")
-    P(f"worst run-to-run per-window IC diff (determinism): {worst_det:.5f}")
-    P(f"worst |mean IC fresh - saved grid| (release):      {worst_saved:.5f}")
-    P("Interpretation: ElasticNetCV is bit-deterministic given the seed; XGBoost's")
-    P("only residual variation is float reduction order under threading, bounded")
-    P("above by the figure shown. We declare the saved predictions canonical.")
-    (TAB / "reproducibility.txt").write_text("\n".join(out))
+    emit("=" * 74)
+    emit("REPRODUCIBILITY CHECK (seeds pinned: random_state=42)")
+    emit("=" * 74)
+    emit(f"{'cell':34}{'meanIC#1':>10}{'meanIC#2':>10}{'maxdIC':>9}"
+         f"{'dPooled':>9}{'vsSaved':>9}")
+
+    worst_run_diff = 0.0
+    worst_saved_diff = 0.0
+    for model, feature_set, scheme, h in CELLS:
+        run1 = window_ics(model, feature_set, scheme, h, panel, ticker_cols, cfg, feat_defs)
+        run2 = window_ics(model, feature_set, scheme, h, panel, ticker_cols, cfg, feat_defs)
+        n = min(len(run1), len(run2))
+        run1, run2 = run1[:n], run2[:n]
+        max_diff = float(np.nanmax(np.abs(run1 - run2))) if n else np.nan
+        pooled_diff = float(abs(np.nanmean(run1) - np.nanmean(run2)))
+
+        saved_ic = saved[(saved.model == model) & (saved.feature_set == feature_set) &
+                         (saved.scheme == scheme) & (saved.horizon == h)]["ic"].to_numpy()
+        saved_diff = float(abs(np.nanmean(run1) - np.nanmean(saved_ic))) if len(saved_ic) else np.nan
+
+        worst_run_diff = max(worst_run_diff, max_diff if np.isfinite(max_diff) else 0.0)
+        worst_saved_diff = max(worst_saved_diff, saved_diff if np.isfinite(saved_diff) else 0.0)
+        emit(f"{model}/{feature_set}/{scheme}/h{h:<3}"
+             f"{np.nanmean(run1):>10.5f}{np.nanmean(run2):>10.5f}{max_diff:>9.5f}"
+             f"{pooled_diff:>9.5f}{saved_diff:>9.5f}")
+
+    emit("")
+    emit(f"worst run-to-run per-window IC diff: {worst_run_diff:.5f}")
+    emit(f"worst |mean IC fresh - saved grid|:  {worst_saved_diff:.5f}")
+    emit("ElasticNetCV (seeded, cyclic) and single-thread XGBoost are deterministic,")
+    emit("so the saved predictions are reproducible and treated as canonical.")
+
+    (TAB / "reproducibility.txt").write_text("\n".join(report_lines))
     print("\n[written] reproducibility.txt")
 
 

@@ -123,12 +123,13 @@ def main():
     for h in HORIZONS:
         rv = _build_rv(panel, h)
         ph = panel.assign(rv=rv).dropna(subset=["rv"]).reset_index(drop=True)
-        ticker_cols_h = [c for c in ph.columns if c.startswith("ticker_")]
+        # Use the one-hot ticker columns returned by the encoder (prefix "tkr_");
+        # re-deriving them with a hard-coded "ticker_" prefix silently drops all 59.
         for fs in SETS:
             feat_ids = _resolve_feature_ids(feat_defs, fs, ph.columns.tolist())
             if not feat_ids:
                 log.warning("skip %s (no features)", fs); continue
-            cols = feat_ids + ticker_cols_h
+            cols = feat_ids + ticker_cols
             X = ph.loc[:, cols].to_numpy(np.float32, na_value=np.nan)
             dates = ph["date"].to_numpy()
             rv_raw = ph["rv"].to_numpy(np.float64, na_value=np.nan)

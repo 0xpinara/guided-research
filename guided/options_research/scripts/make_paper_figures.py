@@ -1,8 +1,8 @@
 """All figures for the paper, in one consistent house style.
 
-Supersedes make_referee_figures.py. Reads only saved result tables; nothing is
-retrained. Volatility figures are produced only if vol_ic_tstats.csv exists, so
-this can be run before and after the vol grid finishes.
+Reads only saved result tables; nothing is retrained. Volatility figures are
+produced only if vol_ic_tstats.csv exists, so this can be run before and after
+the vol grid finishes.
 """
 from __future__ import annotations
 import numpy as np, pandas as pd
@@ -14,7 +14,10 @@ from matplotlib import font_manager as fm
 
 ROOT = Path(__file__).resolve().parents[1]
 TAB = ROOT / "results" / "tables"
-FIG = ROOT.parent / "EasyChair3.5" / "figures"
+# Write next to the paper if that folder exists (the author's setup); otherwise
+# fall back to results/figures/ so the script is self-contained after a fresh clone.
+_paper_fig = ROOT.parent / "EasyChair3.5" / "figures"
+FIG = _paper_fig if _paper_fig.parent.exists() else ROOT / "results" / "figures"
 FIG.mkdir(parents=True, exist_ok=True)
 
 # ---- house style -----------------------------------------------------------
@@ -22,7 +25,7 @@ INK   = "#1d2333"   # near-black ink
 NAVY  = "#264653"
 TEAL  = "#2a9d8f"
 GOLD  = "#e9a23b"
-BRICK = "# a4243b".replace(" ", "")
+BRICK = "#a4243b"
 GREY  = "#9aa0a6"
 MUTED = "#6b7280"
 PALETTE = [NAVY, BRICK, TEAL, GOLD, "#7b6d8d", GREY]

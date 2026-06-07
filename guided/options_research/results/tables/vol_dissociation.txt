@@ -4,20 +4,20 @@ VOLATILITY GRID: mean per-window IC + HAC t, by set (EN & XGB)
 ==========================================================================
 
 -- ElasticNet --
-  expanding     h=1: A=0.264†  B=0.260†  C=0.295†  D=0.292†  candidate_6=0.257†  repr_svi=0.283†  repr_grid=0.287†  repr_grid_raw=0.292†  repr_bkm=0.267†
-  expanding     h=3: A=0.445†  B=0.449†  C=0.499†  D=0.493†  candidate_6=0.438†  repr_svi=0.478†  repr_grid=0.484†  repr_grid_raw=0.495†  repr_bkm=0.450†
-  expanding     h=5: A=0.524†  B=0.532†  C=0.589†  D=0.582†  candidate_6=0.514†  repr_svi=0.563†  repr_grid=0.571†  repr_grid_raw=0.584†  repr_bkm=0.530†
-  rolling_9m_3m h=1: A=0.251†  B=0.268†  C=0.281†  D=0.280†  candidate_6=0.263†  repr_svi=0.271†  repr_grid=0.275†  repr_grid_raw=0.278†  repr_bkm=0.254†
-  rolling_9m_3m h=3: A=0.424†  B=0.457†  C=0.472†  D=0.474†  candidate_6=0.444†  repr_svi=0.457†  repr_grid=0.463†  repr_grid_raw=0.469†  repr_bkm=0.428†
-  rolling_9m_3m h=5: A=0.496†  B=0.539†  C=0.554†  D=0.558†  candidate_6=0.519†  repr_svi=0.536†  repr_grid=0.544†  repr_grid_raw=0.551†  repr_bkm=0.502†
+  expanding     h=1: A=0.279†  B=0.264†  C=0.294†  D=0.291†  candidate_6=0.263†  repr_svi=0.288†  repr_grid=0.287†  repr_grid_raw=0.293†  repr_bkm=0.280†
+  expanding     h=3: A=0.464†  B=0.451†  C=0.499†  D=0.492†  candidate_6=0.448†  repr_svi=0.487†  repr_grid=0.485†  repr_grid_raw=0.497†  repr_bkm=0.460†
+  expanding     h=5: A=0.538†  B=0.535†  C=0.588†  D=0.579†  candidate_6=0.526†  repr_svi=0.573†  repr_grid=0.568†  repr_grid_raw=0.583†  repr_bkm=0.539†
+  rolling_9m_3m h=1: A=0.251†  B=0.270†  C=0.281†  D=0.281†  candidate_6=0.264†  repr_svi=0.265†  repr_grid=0.274†  repr_grid_raw=0.276†  repr_bkm=0.254†
+  rolling_9m_3m h=3: A=0.435†  B=0.458†  C=0.468†  D=0.467†  candidate_6=0.446†  repr_svi=0.451†  repr_grid=0.465†  repr_grid_raw=0.470†  repr_bkm=0.436†
+  rolling_9m_3m h=5: A=0.520†  B=0.545†  C=0.556†  D=0.553†  candidate_6=0.522†  repr_svi=0.536†  repr_grid=0.550†  repr_grid_raw=0.555†  repr_bkm=0.520†
 
 -- XGBoost --
-  expanding     h=1: A=0.261†  B=0.272†  C=0.294†  D=0.296†  candidate_6=0.258†  repr_svi=0.286†  repr_grid=0.296†  repr_grid_raw=0.296†  repr_bkm=0.266†
-  expanding     h=3: A=0.435†  B=0.455†  C=0.492†  D=0.496†  candidate_6=0.435†  repr_svi=0.478†  repr_grid=0.496†  repr_grid_raw=0.495†  repr_bkm=0.449†
-  expanding     h=5: A=0.503†  B=0.530†  C=0.571†  D=0.576†  candidate_6=0.508†  repr_svi=0.554†  repr_grid=0.576†  repr_grid_raw=0.574†  repr_bkm=0.516†
-  rolling_9m_3m h=1: A=0.247†  B=0.268†  C=0.276†  D=0.284†  candidate_6=0.237†  repr_svi=0.270†  repr_grid=0.283†  repr_grid_raw=0.281†  repr_bkm=0.251†
-  rolling_9m_3m h=3: A=0.414†  B=0.454†  C=0.470†  D=0.476†  candidate_6=0.408†  repr_svi=0.454†  repr_grid=0.475†  repr_grid_raw=0.475†  repr_bkm=0.425†
-  rolling_9m_3m h=5: A=0.479†  B=0.528†  C=0.546†  D=0.553†  candidate_6=0.480†  repr_svi=0.527†  repr_grid=0.550†  repr_grid_raw=0.553†  repr_bkm=0.491†
+  expanding     h=1: A=0.269†  B=0.276†  C=0.294†  D=0.296†  candidate_6=0.269†  repr_svi=0.289†  repr_grid=0.296†  repr_grid_raw=0.296†  repr_bkm=0.272†
+  expanding     h=3: A=0.450†  B=0.461†  C=0.492†  D=0.496†  candidate_6=0.453†  repr_svi=0.482†  repr_grid=0.496†  repr_grid_raw=0.495†  repr_bkm=0.459†
+  expanding     h=5: A=0.520†  B=0.536†  C=0.572†  D=0.576†  candidate_6=0.529†  repr_svi=0.559†  repr_grid=0.576†  repr_grid_raw=0.576†  repr_bkm=0.530†
+  rolling_9m_3m h=1: A=0.256†  B=0.271†  C=0.276†  D=0.283†  candidate_6=0.254†  repr_svi=0.272†  repr_grid=0.285†  repr_grid_raw=0.281†  repr_bkm=0.257†
+  rolling_9m_3m h=3: A=0.432†  B=0.459†  C=0.472†  D=0.478†  candidate_6=0.430†  repr_svi=0.460†  repr_grid=0.478†  repr_grid_raw=0.478†  repr_bkm=0.439†
+  rolling_9m_3m h=5: A=0.501†  B=0.534†  C=0.550†  D=0.555†  candidate_6=0.503†  repr_svi=0.532†  repr_grid=0.554†  repr_grid_raw=0.556†  repr_bkm=0.513†
 
 ==========================================================================
 MARGINAL LIFT OVER SET-A CONTROL: returns vs volatility
@@ -25,14 +25,14 @@ MARGINAL LIFT OVER SET-A CONTROL: returns vs volatility
 (lift = IC_set - IC_A, averaged over the EN+XGB workhorse cells x scheme x horizon)
 
   set           RETURNS lift (se)       VOL lift (se)           
-  B             +0.0055 (0.0023)        +0.0224 (0.0045)
-  C             +0.0028 (0.0018)        +0.0497 (0.0042)
-  D             +0.0027 (0.0016)        +0.0515 (0.0045)
-  candidate_6   +0.0014 (0.0029)        +0.0018 (0.0031)
-  repr_svi      -0.0025 (0.0024)        +0.0347 (0.0030)
-  repr_grid     +0.0035 (0.0011)        +0.0465 (0.0047)
-  repr_grid_raw +0.0016 (0.0026)        +0.0501 (0.0045)
-  repr_bkm      -0.0010 (0.0011)        +0.0072 (0.0011)
+  B             +0.0055 (0.0023)        +0.0122 (0.0043)
+  C             +0.0028 (0.0018)        +0.0358 (0.0033)
+  D             +0.0027 (0.0016)        +0.0362 (0.0035)
+  candidate_6   +0.0014 (0.0029)        -0.0004 (0.0027)
+  repr_svi      -0.0025 (0.0024)        +0.0235 (0.0026)
+  repr_grid     +0.0035 (0.0011)        +0.0333 (0.0039)
+  repr_grid_raw +0.0016 (0.0026)        +0.0367 (0.0035)
+  repr_bkm      -0.0010 (0.0011)        +0.0037 (0.0013)
 
   (OLS-on-raw-aggregates is the lone exception: OLS/B,OLS/C vol IC ~0.04 --
    dumping 34-49 raw features into unregularised OLS overfits, which is itself
@@ -42,35 +42,35 @@ MARGINAL LIFT OVER SET-A CONTROL: returns vs volatility
 HLZ t>3 SURVIVORS in the VOL grid (count + list)
 ==========================================================================
   vol cells with t>3: 158 of 162  (returns had 7 of 198)
-   ElasticNet/C/expanding/h5  IC=0.589 t=59.2
-   ElasticNet/D/rolling_9m_3m/h5  IC=0.558 t=56.1
-   ElasticNet/repr_grid_raw/expanding/h5  IC=0.584 t=56.1
-   ElasticNet/D/rolling_9m_3m/h3  IC=0.474 t=55.5
-   ElasticNet/repr_grid/expanding/h5  IC=0.571 t=54.0
-   ElasticNet/D/expanding/h5  IC=0.582 t=50.7
-   ElasticNet/repr_bkm/expanding/h5  IC=0.530 t=50.0
-   ElasticNet/repr_svi/rolling_9m_3m/h5  IC=0.536 t=49.4
-   ElasticNet/C/expanding/h3  IC=0.499 t=49.3
-   ElasticNet/A/expanding/h5  IC=0.524 t=48.5
-   ElasticNet/A/rolling_9m_3m/h5  IC=0.496 t=48.1
-   ElasticNet/repr_svi/rolling_9m_3m/h3  IC=0.457 t=47.5
-   ElasticNet/repr_bkm/rolling_9m_3m/h5  IC=0.502 t=47.4
-   ElasticNet/repr_grid_raw/expanding/h3  IC=0.495 t=46.8
-   ElasticNet/repr_grid/rolling_9m_3m/h3  IC=0.463 t=46.7
-   ElasticNet/repr_grid/expanding/h3  IC=0.484 t=46.7
-   ElasticNet/repr_svi/expanding/h5  IC=0.563 t=46.2
-   ElasticNet/repr_bkm/rolling_9m_3m/h3  IC=0.428 t=46.2
-   ElasticNet/D/rolling_9m_3m/h1  IC=0.280 t=45.9
-   ElasticNet/repr_grid_raw/rolling_9m_3m/h3  IC=0.469 t=45.2
-   ElasticNet/repr_grid/rolling_9m_3m/h5  IC=0.544 t=45.1
-   ElasticNet/A/rolling_9m_3m/h3  IC=0.424 t=44.8
-   ElasticNet/repr_grid_raw/rolling_9m_3m/h5  IC=0.551 t=44.2
-   ElasticNet/D/expanding/h3  IC=0.493 t=43.4
-   ElasticNet/repr_grid/rolling_9m_3m/h1  IC=0.275 t=43.1
+   ElasticNet/C/expanding/h5  IC=0.588 t=58.7
+   ElasticNet/repr_grid_raw/expanding/h5  IC=0.583 t=56.4
+   ElasticNet/repr_svi/expanding/h5  IC=0.573 t=53.8
+   ElasticNet/D/expanding/h5  IC=0.579 t=52.8
+   ElasticNet/repr_grid_raw/expanding/h3  IC=0.497 t=50.1
+   ElasticNet/C/expanding/h3  IC=0.499 t=48.8
+   ElasticNet/D/rolling_9m_3m/h1  IC=0.281 t=47.9
+   ElasticNet/repr_grid/expanding/h3  IC=0.485 t=47.7
+   ElasticNet/A/rolling_9m_3m/h5  IC=0.520 t=47.0
+   ElasticNet/repr_grid/expanding/h5  IC=0.568 t=46.2
+   ElasticNet/repr_bkm/rolling_9m_3m/h5  IC=0.520 t=46.0
+   ElasticNet/D/rolling_9m_3m/h5  IC=0.553 t=45.8
+   ElasticNet/repr_svi/expanding/h3  IC=0.487 t=44.7
+   ElasticNet/repr_grid_raw/rolling_9m_3m/h5  IC=0.555 t=43.7
+   ElasticNet/D/expanding/h3  IC=0.492 t=43.7
+   ElasticNet/C/rolling_9m_3m/h5  IC=0.556 t=43.4
+   XGBoost/repr_grid/rolling_9m_3m/h3  IC=0.478 t=42.7
+   ElasticNet/repr_grid/rolling_9m_3m/h5  IC=0.550 t=42.5
+   ElasticNet/repr_svi/rolling_9m_3m/h5  IC=0.536 t=42.5
+   ElasticNet/A/expanding/h3  IC=0.464 t=42.2
+   XGBoost/D/rolling_9m_3m/h3  IC=0.478 t=41.6
+   XGBoost/repr_grid_raw/rolling_9m_3m/h3  IC=0.478 t=41.5
+   ElasticNet/D/rolling_9m_3m/h3  IC=0.467 t=41.5
+   XGBoost/B/expanding/h5  IC=0.536 t=41.2
+   XGBoost/D/rolling_9m_3m/h5  IC=0.555 t=40.9
 
 ==========================================================================
 HEADLINE DISSOCIATION NUMBERS
 ==========================================================================
-  strongest vol Set-D cell: ElasticNet/rolling_9m_3m/h5: A=0.496(t=48.1), D=0.558(t=56.1), C=0.554(t=40.1); D-A lift=+0.062
-  largest options vol-lift over A: D XGBoost/rolling_9m_3m/h5 lift=+0.075 (set IC=0.553 t=40.9, A=0.479)
+  strongest vol Set-D cell: ElasticNet/expanding/h5: A=0.538(t=40.3), D=0.579(t=52.8), C=0.588(t=58.7); D-A lift=+0.041
+  largest options vol-lift over A: D OLS/rolling_9m_3m/h5 lift=+0.163 (set IC=0.414 t=11.9, A=0.252)
   RETURNS comparator (largest options lift over A): see ~0.01 range, all t<3 except A/B.
