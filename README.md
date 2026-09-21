@@ -4,7 +4,7 @@
 *A power-aware evaluation protocol for constrained cross-sections.*
 
 Pınar Aksoy · METU Computer Engineering · first author
-Manuscript under review at *Borsa Istanbul Review*.
+Manuscript under review at *Financial Innovation*.
 
 ---
 
