@@ -8,5 +8,8 @@ data/raw/
 data/processed/
 
 # Keep report assets small and code-focused in git.
-results/
+# NOTE: a blanket `results/` rule used to live here. It silently contradicted
+# guided/options_research/.gitignore, which deliberately tracks the small result
+# tables and figures, so new results could never be committed. Large artefacts
+# are excluded by the nested .gitignore instead.
 lightning_logs/

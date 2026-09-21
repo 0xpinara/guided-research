@@ -1,5 +1,7 @@
-# Large data and artifacts — keep out of git
-data/
+# Large data and artifacts — keep out of git.
+# Leading slash matters: an unanchored `data/` also matched src/data/ and
+# silently excluded the whole data-ingestion layer from the repo.
+/data/
 results/model_checkpoints/
 results/logs/
 .pycache/

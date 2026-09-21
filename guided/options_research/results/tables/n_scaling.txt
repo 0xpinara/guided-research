@@ -1,0 +1,81 @@
+==============================================================================
+EMPIRICAL vs 1/sqrt(N) SCALING OF THE HAC SE OF THE MEAN RANK IC
+==============================================================================
+seeds per (cell,N) = 40 | subset re-demeaning = True | sampling pool = all 60 tickers | placebo = none
+Models are NOT retrained: subsets are drawn from saved OOS predictions, so
+this isolates evaluation-side cross-sectional sampling noise -- the exact
+quantity DT(N) = t* * SE_ref * sqrt(N_ref/N) extrapolates.
+
+------------------------------------------------------------------------------
+Per-N aggregate over 18 cells (median across cells of the per-cell median SE)
+------------------------------------------------------------------------------
+   N    SE_empirical    SE_pred 1/sqrtN    ratio emp/pred    implied DT(N)=3*SE
+   20      0.00964          0.01198             0.805            0.0289
+   30      0.00798          0.00978             0.816            0.0240
+   40      0.00786          0.00847             0.927            0.0236
+   50      0.00720          0.00758             0.950            0.0216
+   60      0.00692          0.00692             1.000            0.0208
+
+log-log fit of SE on N over the aggregate curve: SE ~ N^(-0.289)
+   1/sqrt(N) scaling predicts an exponent of -0.500.
+per-cell exponents: n=18  mean=-0.341  median=-0.313  sd=0.149  range=[-0.766,-0.106]
+
+variance decomposition  SE(N)^2 = a + b/N   (R^2 = 0.9638)
+   a = 2.580e-05  ->  irreducible SE floor sqrt(a) = 0.00508
+   b = 1.305e-03  ->  N-dependent sampling term
+   implied floor on the t*=3 detection threshold: 0.0152
+   (this floor is set by genuine time-variation in the cross-sectional IC
+    at this design's window count; it falls with MORE CALENDAR TIME, not
+    with more names.)
+
+largest deviation of empirical from predicted SE across the N grid: 19.5%
+------------------------------------------------------------------------------
+RESOLUTION FLOORS (from SE^2 = a + b/N; no cross-section size removes them)
+------------------------------------------------------------------------------
+  floor on the t*=3 detection threshold   = 0.0152
+  floor on the 80% power at t*=3          = 0.0195
+
+------------------------------------------------------------------------------
+REQUIRED CROSS-SECTION to place the t*=3 detection threshold at a given effect
+------------------------------------------------------------------------------
+anchored at N=60, SE=0.00692  (target SE = effect / 3.0000)
+  effect  target SE   N under 1/sqrt(N)   N under measured N^-0.289   SE^2=a+b/N
+  0.0020  0.00067             6461                   199110    unreachable
+  0.0030  0.00100             2872                    48853    unreachable
+  0.0040  0.00133             1615                    18028    unreachable
+  0.0150  0.00500              115                      185    unreachable
+  0.0190  0.00633               72                       81             91
+  0.0250  0.00833               41                       31             30
+  0.0360  0.01200               20                        9             11
+
+------------------------------------------------------------------------------
+REQUIRED CROSS-SECTION to place the 80% power at t*=3 at a given effect
+------------------------------------------------------------------------------
+anchored at N=60, SE=0.00692  (target SE = effect / 3.8416)
+  effect  target SE   N under 1/sqrt(N)   N under measured N^-0.289   SE^2=a+b/N
+  0.0020  0.00052            10595                   469070    unreachable
+  0.0030  0.00078             4709                   115090    unreachable
+  0.0040  0.00104             2649                    42471    unreachable
+  0.0150  0.00390              188                      435    unreachable
+  0.0190  0.00495              117                      192    unreachable
+  0.0250  0.00651               68                       74             79
+  0.0360  0.00937               33                       21             21
+
+Note. Moving from bare significance to 80% power multiplies the required
+effect by (3+0.84)/3 = 1.28. That costs a factor 1.64 in N under 1/sqrt(N)
+but a factor 2.36 under the measured N^-0.289 law, because a flatter exponent
+means each unit of extra resolution buys far fewer names. Reliable detection
+is therefore substantially more expensive than the conventional rule implies.
+
+Reading. A pure-noise placebo (--placebo noise) recovers an exponent of about
+-0.5 with no variance floor, so the subsampling machinery is sound. On the
+real predictions the exponent is materially flatter than -0.5 and the
+SE^2 = a + b/N fit carries a positive intercept. The reason is that the HAC SE
+of the MEAN per-window IC combines two terms: cross-sectional sampling noise,
+which does shrink with N, and genuine time-variation in the cross-sectional IC,
+which does not. The second term puts a floor under the standard error that no
+universe size removes at a fixed number of evaluation windows. The plain
+1/sqrt(N) calculator is therefore OPTIMISTIC: it understates the cross-section
+needed, and for effects below 3*sqrt(a) it reports a finite N where the honest
+answer is that more names alone will not do it -- more calendar time, or a
+panel-level estimator with a smaller floor, is required.
