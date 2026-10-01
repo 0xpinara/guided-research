@@ -1,0 +1,28 @@
+Task 0 re-fits (modelling panel: 133,773 rows, 59 ticker dummies)
+(a) ElasticNet / D / rolling_9m_3m / h=5 re-fit with the BIR-era code path
+    windows: fresh 10, saved 10; test-start dates identical: True
+    max |per-window IC fresh - saved| = 9.714e-17
+    mean IC fresh 0.033099 (NW t 4.8074); saved 0.033099 (NW t 4.8074)
+    long/short on fresh predictions: final $ 5,227.71, Sharpe as coded (geometric) 1.1504, arithmetic mean/sd*sqrt(252/5) 1.0252, periods 404
+    predictions saved: revision/out/T0/en_D_rolling_h5_predictions.parquet (119,682 rows)
+(b) OLS effective rank, rolling_9m_3m h=5, windows 0/15/31 (float32 = BIR code path)
+    A          w0  cols= 80 | float32 rank   7 IC -0.002635 (saved -0.002635) | float64 rank  79 IC -0.042618
+    A          w15 cols= 80 | float32 rank   6 IC +0.049527 (saved +0.049527) | float64 rank  79 IC +0.067399
+    A          w31 cols= 80 | float32 rank   6 IC -0.068457 (saved -0.068457) | float64 rank  79 IC +0.094806
+    repr_svi   w0  cols= 90 | float32 rank   7 IC -0.002642 (saved -0.002642) | float64 rank  89 IC -0.039969
+    repr_svi   w15 cols= 90 | float32 rank   6 IC +0.049527 (saved +0.049527) | float64 rank  89 IC +0.051186
+    repr_svi   w31 cols= 90 | float32 rank   6 IC -0.068454 (saved -0.068454) | float64 rank  89 IC +0.105456
+    D          w0  cols=114 | float32 rank   8 IC +0.029025 (saved +0.029025) | float64 rank 113 IC -0.033411
+    D          w15 cols=114 | float32 rank   7 IC +0.015273 (saved +0.015273) | float64 rank 113 IC +0.055315
+    D          w31 cols=114 | float32 rank   6 IC -0.068301 (saved -0.068301) | float64 rank 113 IC +0.118111
+    repr_grid  w0  cols=104 | float32 rank   8 IC +0.029389 (saved +0.029389) | float64 rank 103 IC -0.034590
+    repr_grid  w15 cols=104 | float32 rank   7 IC +0.015182 (saved +0.015181) | float64 rank 103 IC +0.074332
+    repr_grid  w31 cols=104 | float32 rank   6 IC -0.068286 (saved -0.068286) | float64 rank 103 IC +0.113515
+    B          w0  cols= 93 | float32 rank   1 IC +0.024283 (saved +0.024283) | float64 rank  91 IC -0.057241
+    B          w15 cols= 93 | float32 rank   1 IC +0.046674 (saved +0.046674) | float64 rank  92 IC +0.060865
+    B          w31 cols= 93 | float32 rank   1 IC +0.086001 (saved +0.086001) | float64 rank  93 IC +0.085481
+    C          w0  cols=108 | float32 rank   1 IC +0.024283 (saved +0.024283) | float64 rank 105 IC -0.057070
+    C          w15 cols=108 | float32 rank   1 IC +0.046674 (saved +0.046674) | float64 rank 107 IC +0.074618
+    C          w31 cols=108 | float32 rank   1 IC +0.086001 (saved +0.086001) | float64 rank 107 IC +0.096130
+    float32 fit reproduces the saved OLS IC in 17/18 window-cells
+run time: 17 s
