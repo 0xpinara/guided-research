@@ -1,0 +1,251 @@
+
+==============================================================================
+A2/A3  REPRESENTATION HEAD-TO-HEAD + MARGINAL LIFT OVER SET-A CONTROL
+==============================================================================
+
+--- ElasticNet: pooled walk-forward IC (NW t), lift over Set-A control ---
+  expanding     h=1:
+      A              IC=+0.0102  t=+0.98  lift_vs_A=+0.0000
+      D              IC=+0.0108  t=+1.29  lift_vs_A=+0.0006
+      repr_svi       IC=+0.0062  t=+0.87  lift_vs_A=-0.0039
+      repr_grid      IC=+0.0071  t=+0.94  lift_vs_A=-0.0030
+      repr_grid_raw  IC=+0.0077  t=+1.51  lift_vs_A=-0.0024
+      repr_bkm       IC=+0.0099  t=+1.22  lift_vs_A=-0.0002
+  expanding     h=3:
+      A              IC=+0.0106  t=+1.37  lift_vs_A=+0.0000
+      D              IC=+0.0186  t=+1.89  lift_vs_A=+0.0080
+      repr_svi       IC=+0.0180  t=+2.13  lift_vs_A=+0.0074
+      repr_grid      IC=+0.0213  t=+2.26  lift_vs_A=+0.0107
+      repr_grid_raw  IC=+0.0159  t=+1.74  lift_vs_A=+0.0053
+      repr_bkm       IC=+0.0141  t=+1.63  lift_vs_A=+0.0035
+  expanding     h=5:
+      A              IC=+0.0153  t=+1.43  lift_vs_A=+0.0000
+      D              IC=+0.0206  t=+1.98  lift_vs_A=+0.0052
+      repr_svi       IC=+0.0182  t=+1.71  lift_vs_A=+0.0029
+      repr_grid      IC=+0.0195  t=+2.02  lift_vs_A=+0.0041
+      repr_grid_raw  IC=+0.0219  t=+2.11  lift_vs_A=+0.0065
+      repr_bkm       IC=+0.0151  t=+1.45  lift_vs_A=-0.0002
+  rolling_9m_3m h=1:
+      A              IC=+0.0073  t=+1.22  lift_vs_A=+0.0000
+      D              IC=+0.0049  t=+1.01  lift_vs_A=-0.0024
+      repr_svi       IC=+0.0027  t=+0.67  lift_vs_A=-0.0046
+      repr_grid      IC=+0.0070  t=+1.32  lift_vs_A=-0.0002
+      repr_grid_raw  IC=+0.0099  t=+2.71  lift_vs_A=+0.0026
+      repr_bkm       IC=+0.0053  t=+0.95  lift_vs_A=-0.0020
+  rolling_9m_3m h=3:
+      A              IC=-0.0011  t=-0.17  lift_vs_A=+0.0000
+      D              IC=+0.0054  t=+0.63  lift_vs_A=+0.0065
+      repr_svi       IC=+0.0013  t=+0.24  lift_vs_A=+0.0024
+      repr_grid      IC=+0.0027  t=+0.22  lift_vs_A=+0.0038
+      repr_grid_raw  IC=+0.0104  t=+1.31  lift_vs_A=+0.0115
+      repr_bkm       IC=+0.0005  t=+0.09  lift_vs_A=+0.0016
+  rolling_9m_3m h=5:
+      A              IC=+0.0311  t=+3.21  lift_vs_A=+0.0000  <-- HLZ t>3
+      D              IC=+0.0331  t=+4.81  lift_vs_A=+0.0020  <-- HLZ t>3
+      repr_svi       IC=+0.0066  t=+0.47  lift_vs_A=-0.0245
+      repr_grid      IC=+0.0346  t=+4.28  lift_vs_A=+0.0035  <-- HLZ t>3
+      repr_grid_raw  IC=+0.0095  t=+0.69  lift_vs_A=-0.0216
+      repr_bkm       IC=+0.0312  t=+3.24  lift_vs_A=+0.0001  <-- HLZ t>3
+
+--- XGBoost: pooled walk-forward IC (NW t), lift over Set-A control ---
+  expanding     h=1:
+      A              IC=+0.0136  t=+3.64  lift_vs_A=+0.0000  <-- HLZ t>3
+      D              IC=+0.0053  t=+1.02  lift_vs_A=-0.0083
+      repr_svi       IC=+0.0041  t=+0.91  lift_vs_A=-0.0095
+      repr_grid      IC=+0.0122  t=+2.34  lift_vs_A=-0.0014
+      repr_grid_raw  IC=+0.0052  t=+1.56  lift_vs_A=-0.0084
+      repr_bkm       IC=+0.0056  t=+1.92  lift_vs_A=-0.0080
+  expanding     h=3:
+      A              IC=+0.0061  t=+1.04  lift_vs_A=+0.0000
+      D              IC=+0.0118  t=+1.47  lift_vs_A=+0.0057
+      repr_svi       IC=+0.0109  t=+1.73  lift_vs_A=+0.0047
+      repr_grid      IC=+0.0138  t=+1.63  lift_vs_A=+0.0077
+      repr_grid_raw  IC=+0.0096  t=+1.37  lift_vs_A=+0.0035
+      repr_bkm       IC=+0.0097  t=+1.46  lift_vs_A=+0.0035
+  expanding     h=5:
+      A              IC=+0.0042  t=+0.65  lift_vs_A=+0.0000
+      D              IC=+0.0167  t=+1.93  lift_vs_A=+0.0125
+      repr_svi       IC=-0.0049  t=-0.52  lift_vs_A=-0.0091
+      repr_grid      IC=+0.0130  t=+1.33  lift_vs_A=+0.0088
+      repr_grid_raw  IC=+0.0177  t=+1.90  lift_vs_A=+0.0135
+      repr_bkm       IC=-0.0040  t=-0.48  lift_vs_A=-0.0082
+  rolling_9m_3m h=1:
+      A              IC=+0.0007  t=+0.16  lift_vs_A=+0.0000
+      D              IC=+0.0060  t=+2.57  lift_vs_A=+0.0052
+      repr_svi       IC=+0.0020  t=+0.65  lift_vs_A=+0.0013
+      repr_grid      IC=+0.0020  t=+0.79  lift_vs_A=+0.0013
+      repr_grid_raw  IC=+0.0083  t=+2.41  lift_vs_A=+0.0076
+      repr_bkm       IC=-0.0034  t=-1.00  lift_vs_A=-0.0041
+  rolling_9m_3m h=3:
+      A              IC=+0.0024  t=+0.60  lift_vs_A=+0.0000
+      D              IC=+0.0052  t=+1.06  lift_vs_A=+0.0028
+      repr_svi       IC=+0.0012  t=+0.25  lift_vs_A=-0.0013
+      repr_grid      IC=+0.0073  t=+1.26  lift_vs_A=+0.0049
+      repr_grid_raw  IC=+0.0072  t=+1.37  lift_vs_A=+0.0048
+      repr_bkm       IC=+0.0044  t=+0.88  lift_vs_A=+0.0019
+  rolling_9m_3m h=5:
+      A              IC=+0.0032  t=+0.38  lift_vs_A=+0.0000
+      D              IC=-0.0025  t=-0.39  lift_vs_A=-0.0058
+      repr_svi       IC=+0.0074  t=+0.92  lift_vs_A=+0.0041
+      repr_grid      IC=+0.0053  t=+0.79  lift_vs_A=+0.0021
+      repr_grid_raw  IC=-0.0004  t=-0.07  lift_vs_A=-0.0037
+      repr_bkm       IC=+0.0037  t=+0.52  lift_vs_A=+0.0004
+
+--- Does SVI fitting earn its keep? repr_grid (SVI) vs repr_grid_raw (model-free), XGBoost daily-IC ---
+  expanding     h=1: SVI-grid IC=+0.0114  raw-grid IC=+0.0028  diff(SVI-raw)=+0.0086
+  expanding     h=3: SVI-grid IC=+0.0086  raw-grid IC=+0.0081  diff(SVI-raw)=+0.0005
+  expanding     h=5: SVI-grid IC=+0.0122  raw-grid IC=+0.0213  diff(SVI-raw)=-0.0091
+  rolling_9m_3m h=1: SVI-grid IC=+0.0052  raw-grid IC=+0.0076  diff(SVI-raw)=-0.0024
+  rolling_9m_3m h=3: SVI-grid IC=+0.0085  raw-grid IC=+0.0074  diff(SVI-raw)=+0.0011
+  rolling_9m_3m h=5: SVI-grid IC=+0.0057  raw-grid IC=+0.0039  diff(SVI-raw)=+0.0018
+
+==============================================================================
+B1  DROP ETFs (SPY/QQQ/IWM) FROM THE RANKED/TRADEABLE UNIVERSE
+==============================================================================
+
+--- XGBoost pooled daily-IC WITH vs WITHOUT the 3 ETFs ---
+  A            expanding     h=1: IC_all=+0.0103  IC_ex-ETF=+0.0109  delta=+0.0007
+  B            expanding     h=1: IC_all=+0.0056  IC_ex-ETF=+0.0059  delta=+0.0003
+  D            expanding     h=1: IC_all=+0.0043  IC_ex-ETF=+0.0041  delta=-0.0002
+  candidate_6  expanding     h=1: IC_all=-0.0013  IC_ex-ETF=-0.0006  delta=+0.0007
+  A            expanding     h=3: IC_all=+0.0063  IC_ex-ETF=+0.0066  delta=+0.0003
+  B            expanding     h=3: IC_all=+0.0150  IC_ex-ETF=+0.0144  delta=-0.0006
+  D            expanding     h=3: IC_all=+0.0088  IC_ex-ETF=+0.0084  delta=-0.0005
+  candidate_6  expanding     h=3: IC_all=+0.0057  IC_ex-ETF=+0.0074  delta=+0.0017
+  A            expanding     h=5: IC_all=+0.0055  IC_ex-ETF=+0.0054  delta=-0.0000
+  B            expanding     h=5: IC_all=+0.0190  IC_ex-ETF=+0.0196  delta=+0.0006
+  D            expanding     h=5: IC_all=+0.0159  IC_ex-ETF=+0.0146  delta=-0.0012
+  candidate_6  expanding     h=5: IC_all=+0.0146  IC_ex-ETF=+0.0148  delta=+0.0002
+  A            rolling_9m_3m h=1: IC_all=+0.0009  IC_ex-ETF=+0.0010  delta=+0.0002
+  B            rolling_9m_3m h=1: IC_all=+0.0101  IC_ex-ETF=+0.0096  delta=-0.0005
+  D            rolling_9m_3m h=1: IC_all=+0.0083  IC_ex-ETF=+0.0088  delta=+0.0005
+  candidate_6  rolling_9m_3m h=1: IC_all=+0.0035  IC_ex-ETF=+0.0036  delta=+0.0001
+  A            rolling_9m_3m h=3: IC_all=+0.0043  IC_ex-ETF=+0.0042  delta=-0.0002
+  B            rolling_9m_3m h=3: IC_all=+0.0098  IC_ex-ETF=+0.0097  delta=-0.0001
+  D            rolling_9m_3m h=3: IC_all=+0.0083  IC_ex-ETF=+0.0085  delta=+0.0002
+  candidate_6  rolling_9m_3m h=3: IC_all=+0.0119  IC_ex-ETF=+0.0109  delta=-0.0011
+  A            rolling_9m_3m h=5: IC_all=+0.0054  IC_ex-ETF=+0.0051  delta=-0.0003
+  B            rolling_9m_3m h=5: IC_all=+0.0142  IC_ex-ETF=+0.0133  delta=-0.0009
+  D            rolling_9m_3m h=5: IC_all=-0.0017  IC_ex-ETF=-0.0020  delta=-0.0002
+  candidate_6  rolling_9m_3m h=5: IC_all=+0.0140  IC_ex-ETF=+0.0129  delta=-0.0011
+
+--- ETF appearance frequency in the top-6/bottom-6 decile (XGBoost/D) ---
+  expanding     h=3: 242/567 rebalances have an ETF in a leg (42.7%)
+  expanding     h=5: 144/341 rebalances have an ETF in a leg (42.2%)
+  rolling_9m_3m h=5: 93/404 rebalances have an ETF in a leg (23.0%)
+
+--- XGBoost/D gross long/short Sharpe (no costs), with vs without ETFs ---
+  expanding     h=5: Sharpe_all=+0.432  Sharpe_ex-ETF=+0.322
+  rolling_9m_3m h=5: Sharpe_all=-0.030  Sharpe_ex-ETF=+0.028
+
+==============================================================================
+B2  GEX REGIME IC WITH SIGNIFICANCE (block-bootstrap over dates)
+==============================================================================
+
+[headline regime cell: XGBoost / Set D / expanding / h=3]
+
+  (a) GEX sign split (zero threshold, as in the paper):
+    short-gamma (GEX<0): meanIC=+0.0153  95%CI[-0.0059,+0.0356]  obs=24036 days=1309
+    long-gamma (GEX>=0): meanIC=+0.0131  95%CI[-0.0010,+0.0278]  obs=77061
+    diff (short-gamma (GEX<0)-long-gamma (GEX>=0)) = +0.0022  95%CI[-0.0212,+0.0244]  boot p=0.842
+
+  (b) ROBUSTNESS: split at cross-sectional MEDIAN GEX instead of zero:
+    below-median GEX: meanIC=+0.0041  95%CI[-0.0098,+0.0180]  obs=50548 days=1564
+    above-median GEX: meanIC=+0.0113  95%CI[-0.0032,+0.0259]  obs=50549
+    diff (below-median GEX-above-median GEX) = -0.0072  95%CI[-0.0240,+0.0089]  boot p=0.407
+
+  (c) ROBUSTNESS: split on GEX/mktcap (feat_22) sign:
+    GEX/mc<0: meanIC=+0.0153  95%CI[-0.0059,+0.0356]  obs=24036 days=1309
+    GEX/mc>=0: meanIC=+0.0131  95%CI[-0.0010,+0.0278]  obs=77061
+    diff (GEX/mc<0-GEX/mc>=0) = +0.0022  95%CI[-0.0212,+0.0244]  boot p=0.842
+
+  Note: flipping the call/put sign convention merely relabels the two buckets,
+  so the magnitude of the IC differential is invariant to the convention;
+  only the economic label (which bucket is 'short gamma') depends on it.
+
+==============================================================================
+B6  SET-A (STOCK-ONLY) ECONOMIC CONTROL vs SET-D, from saved daily L/S returns
+==============================================================================
+
+   model        set  scheme        h   $1000->     Sharpe   AnnRet    MaxDD
+   ElasticNet  A    rolling_9m_3m 5  $    2785   +0.78    +15.9%   -24.9%
+   ElasticNet  D    rolling_9m_3m 5  $    5228   +1.15    +25.9%   -18.4%
+   ElasticNet  A    expanding     5  $    3017   +0.80    +22.3%   -40.8%
+   ElasticNet  D    expanding     5  $    3667   +0.88    +26.7%   -38.0%
+   ElasticNet  A    expanding     3  $    1436   +0.35     +9.3%   -49.3%
+   ElasticNet  D    expanding     3  $    2637   +0.69    +20.7%   -51.5%
+   XGBoost     A    rolling_9m_3m 5  $    1641   +0.40     +9.1%   -39.6%
+   XGBoost     D    rolling_9m_3m 5  $     668   -0.08     -2.0%   -56.9%
+   XGBoost     A    expanding     5  $    1691   +0.47    +11.1%   -30.4%
+   XGBoost     D    expanding     5  $    1554   +0.40    +10.3%   -46.1%
+   XGBoost     A    expanding     3  $    2083   +0.66    +14.1%   -28.6%
+   XGBoost     D    expanding     3  $    1157   +0.22     +5.3%   -39.9%
+
+==============================================================================
+A1/B3  DEFLATED SHARPE: actual N, principled-design N, headline outcome
+==============================================================================
+
+  long/short trials actually scored (15% cost): N_actual = 198
+  cross-trial Sharpe variance V = 0.1742, sd = 0.4174
+  E[max Sharpe | null], N_actual=198:  sr0 = 1.1529
+  if N = 192 (completed grid (=ls_daily cells)): sr0 = 1.1487
+  if N = 252 (intended design incl. TabNet+TFT (6 models x ...)): sr0 = 1.1855
+
+  HEADLINE EN/D/rolling/5 Sharpe = 1.1504
+  -> excess over sr0(N_actual) = -0.0025  (survives=False)
+  -> with larger design N the bar only RISES, so the headline fails under any honest N.
+  approx deflated-Sharpe probability (per-period, normal) DSR ~= 0.497  (need >0.95)
+  cells with Sharpe > sr0(N_actual): 2 of 198
+
+==============================================================================
+C  YEAR-BY-YEAR P&L of the (former) headline cells -> concentration check
+==============================================================================
+
+  ElasticNet/D/rolling_9m_3m/h=5: annual return by calendar year
+      2016:    -8.2%   (rebalances=13)
+      2017:   +45.2%   (rebalances=50)
+      2018:   +32.6%   (rebalances=50)
+      2019:    +7.3%   (rebalances=51)
+      2020:   +82.2%   (rebalances=50)
+      2021:    -2.0%   (rebalances=50)
+      2022:   +26.1%   (rebalances=50)
+      2023:    +7.0%   (rebalances=49)
+      2024:   +14.4%   (rebalances=41)
+
+  ElasticNet/D/expanding/h=3: annual return by calendar year
+      2018:    +3.7%   (rebalances=84)
+      2019:   +24.5%   (rebalances=84)
+      2020:   +68.0%   (rebalances=84)
+      2021:   +15.7%   (rebalances=82)
+      2022:   -49.2%   (rebalances=84)
+      2023:   +84.3%   (rebalances=82)
+      2024:   +12.4%   (rebalances=67)
+
+  XGBoost/D/expanding/h=3: annual return by calendar year
+      2018:    -7.3%   (rebalances=84)
+      2019:    -2.1%   (rebalances=84)
+      2020:   +16.1%   (rebalances=84)
+      2021:    +3.8%   (rebalances=82)
+      2022:   -30.6%   (rebalances=84)
+      2023:   +46.7%   (rebalances=82)
+      2024:    +3.9%   (rebalances=67)
+
+==============================================================================
+C  EARNINGS-WINDOW SENSITIVITY of the pooled IC (XGBoost/D)
+==============================================================================
+  expanding     h=3: IC_all=+0.0088  IC_excl-earnings-cross=+0.0092  delta=+0.0004
+  expanding     h=5: IC_all=+0.0159  IC_excl-earnings-cross=+0.0156  delta=-0.0003
+
+==============================================================================
+C  SVI NO-ARBITRAGE DIAGNOSTIC (constraints NOT imposed in fit_svi)
+==============================================================================
+  headline-expiry fits with finite SVI params: 132097
+  Lee wing-slope b*(1+|rho|): mean=0.058 median=0.054 p95=0.100
+  fraction violating no-butterfly necessary bound b*(1+|rho|) > 2: 0.01%
+  fraction violating b*(1+|rho|) > 4: 0.01%
+
+==============================================================================
+C  FREQUENCY: daily vs quarterly(per-window) IC for Set D (context for the 0.02-0.05 benchmark)
+==============================================================================
+  ElasticNet/D/rolling_9m_3m/h=5: per-window(quarterly) mean IC = +0.0331 over 32 windows (this is the number compared to the benchmark)
+  XGBoost/D/expanding/h=3: per-window(quarterly) mean IC = +0.0118 over 27 windows (this is the number compared to the benchmark)

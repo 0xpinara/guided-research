@@ -1,0 +1,29 @@
+TreeSHAP mean|contribution| share, Set D, h=5 (XGBoost, exact TreeSHAP)
+
+== return ==
+     8.3%  iv_25dc_6m             iv_25dc_6m
+     5.4%  feat_41                risk_free_rate
+     5.1%  feat_38                vix_close
+     4.8%  feat_36                dist_sma50
+     4.7%  feat_43                days_to_next_earnings
+     4.7%  feat_31                hvol_30d
+     4.5%  feat_33                macd_value
+     3.8%  iv_atm_2m              iv_atm_2m
+     3.3%  feat_30                hvol_ratio_10d_30d
+     3.0%  iv_25dp_1m             iv_25dp_1m
+     2.8%  iv_10dc_3m             iv_10dc_3m
+     2.5%  feat_37                atr_14
+
+== volatility ==
+    16.4%  feat_38                vix_close
+     9.1%  feat_43                days_to_next_earnings
+     8.7%  iv_25dc_6m             iv_25dc_6m
+     7.9%  iv_25dc_3m             iv_25dc_3m
+     6.3%  feat_41                risk_free_rate
+     3.8%  feat_31                hvol_30d
+     3.5%  iv_10dc_3m             iv_10dc_3m
+     3.4%  iv_atm_6m              iv_atm_6m
+     2.6%  iv_atm_1m              iv_atm_1m
+     2.4%  svi_a                  svi_a
+     2.1%  iv_atm_3m              iv_atm_3m
+     1.9%  iv_25dp_1m             iv_25dp_1m

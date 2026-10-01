@@ -1,0 +1,44 @@
+Post-hoc rigor summary
+==================================================
+
+IC multiple-testing (198 cells):
+  survive |t|>1.96 (5%): 31
+  survive |t|>3.0 (Harvey-Liu-Zhu hurdle): 7
+  top 5 cells by NW t-stat:
+    ElasticNet/D/h5/rolling_9m_3m: IC=+0.0331 t=+4.81 (n=32)
+    ElasticNet/repr_grid/h5/rolling_9m_3m: IC=+0.0346 t=+4.28 (n=32)
+    ElasticNet/B/h3/rolling_9m_3m: IC=+0.0209 t=+3.70 (n=32)
+    XGBoost/A/h1/expanding: IC=+0.0136 t=+3.64 (n=27)
+    ElasticNet/repr_bkm/h5/rolling_9m_3m: IC=+0.0312 t=+3.24 (n=32)
+
+Deflated Sharpe (N=198 long/short trials):
+  expected-max Sharpe under null SR0 = 1.153
+  long/short cells with Sharpe > SR0: 2
+
+Direction base rate (fraction up):
+  1-day: 0.5275  (accuracy must beat this, not 0.50)
+  3-day: 0.5502  (accuracy must beat this, not 0.50)
+  5-day: 0.5609  (accuracy must beat this, not 0.50)
+
+Probability of Backtest Overfitting (CSCV, expanding/3-day L/S):
+  PBO = 0.571 over 32 trials, 70 splits  (lower is better; >0.5 = overfit)
+
+Regime rank-IC (headline cell: XGBoost/D/expanding/3-day):
+  VIX       low (<=15)      : IC=+0.0146
+  VIX       normal (15-25)  : IC=+0.0064
+  VIX       high (>=25)     : IC=+0.0098
+  Earnings  near (<=7d)     : IC=-0.0037
+  Earnings  far (>7d)       : IC=+0.0085
+  GEX       negative        : IC=+0.0232
+  GEX       positive        : IC=+0.0042
+
+Signal decay by horizon (XGBoost/D/expanding):
+  1-day: pooled IC=+0.0025  L/S Sharpe=+0.12
+  3-day: pooled IC=+0.0092  L/S Sharpe=+0.22
+  5-day: pooled IC=+0.0135  L/S Sharpe=+0.40
+
+SVI calibration quality:
+  svi_fit_success_rate: 0.9831
+  svi_fit_rmse_mean: 0.0001
+  svi_fit_rmse_median: 0.0001
+  svi_fit_rmse_p90: 0.0002

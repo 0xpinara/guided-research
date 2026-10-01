@@ -1,0 +1,21 @@
+PRIMARY RETURN IC -- mean per-window rank IC (matches Tables 2-4), all names vs ETF-free
+cell                             IC all    (t)  IC exETF    (t)      dIC
+ElasticNet/D/rolling_9m_3m/h5     0.0331   4.81    0.0341   4.62  +0.0010
+ElasticNet/D/expanding/h3     0.0186   1.89    0.0186   1.78  +0.0000
+ElasticNet/A/rolling_9m_3m/h5     0.0311   3.21    0.0332   3.31  +0.0021
+ElasticNet/A/expanding/h3     0.0106   1.37    0.0104   1.33  -0.0001
+XGBoost/D/rolling_9m_3m/h5    -0.0025  -0.39   -0.0033  -0.47  -0.0007
+XGBoost/D/expanding/h3     0.0118   1.47    0.0114   1.37  -0.0004
+XGBoost/A/rolling_9m_3m/h5     0.0032   0.38    0.0030   0.35  -0.0002
+XGBoost/A/expanding/h3     0.0061   1.04    0.0071   1.18  +0.0009
+
+ETF-free dollar-neutral long/short (drop SPY/QQQ/IWM from tradeable universe)
+cell                                 $1000 all   Sh all   $1000 exETF   Sh exETF
+ElasticNet/D/rolling_9m_3m/h5            5228     1.15          4585       1.07
+ElasticNet/D/expanding/h3            2637     0.69          2716       0.70
+ElasticNet/A/rolling_9m_3m/h5            2785     0.78          2609       0.75
+ElasticNet/A/expanding/h3            1436     0.35          1305       0.29
+XGBoost/D/rolling_9m_3m/h5             668    -0.08           742      -0.02
+XGBoost/D/expanding/h3            1157     0.22           923       0.08
+XGBoost/A/rolling_9m_3m/h5            1641     0.40          1494       0.34
+XGBoost/A/expanding/h3            2083     0.66          1581       0.44

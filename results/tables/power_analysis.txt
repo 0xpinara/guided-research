@@ -1,0 +1,22 @@
+== Statistical power of the 60-name return study ==
+median HAC SE of per-window mean IC (198 cells): 0.0064
+  ... over options/surface cells (B,D,repr_grid): 0.0064
+minimum detectable effect at t>3 (MDE = 3*SE): 0.0192
+median per-window IC std (within cell): 0.0355
+single-cross-section IC sampling sd 1/sqrt(N-1), N=60: 0.1302
+observed options marginal lift over A: rolling-5d D=+0.0020, grid=+0.0035; broad |lift| avg=0.0059
+required cross-section N to resolve a given marginal lift at t>3:
+   lift=0.002:  MDE/lift= 9.6x   N_req ~=  5529 names
+   lift=0.003:  MDE/lift= 6.4x   N_req ~=  2457 names
+   lift=0.004:  MDE/lift= 4.8x   N_req ~=  1382 names   <-- headline (paper states lift 0.002-0.004)
+   lift=0.006:  MDE/lift= 3.2x   N_req ~=   614 names
+  => at the literature-relevant lift of 0.004, need ~1382 names;
+     large-universe sort papers use thousands -> their positive and this
+     60-name null are reconciled by POWER, not contradiction.
+[written] power_curve.csv (53 points), lift=0.0059, MDE0=0.0192, N_req=1382
+
+# machine-readable
+MDE_t3=0.019199
+lift_head=0.004
+N_req_head=1382.3
+se_med=0.006400

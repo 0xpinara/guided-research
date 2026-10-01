@@ -1,0 +1,18 @@
+# Large data and artifacts — keep out of git
+data/
+results/model_checkpoints/
+results/logs/
+.pycache/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Large saved out-of-sample prediction parquets (~50 MB each; rebuild via
+# run_full_matrix.py / run_vol_matrix.py). The small results/tables/*.txt and
+# *.csv — which reproduce every figure and number — stay tracked, as does the
+# 2 MB full_matrix_ls_daily.parquet the figures need.
+results/tables/full_matrix_oos_xgb.parquet
+results/tables/vol_oos_xgb.parquet
+
+# Keep (tracked): src/, scripts/, config/, tests/, README.md, results/tables/ (minus
+# the two big parquets above), results/figures/
