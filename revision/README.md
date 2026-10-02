@@ -9,7 +9,8 @@ The plan is `paper/steps.md`; the authors' amendments of 2026-09-30 are copied v
 | Freeze of the BIR-era state | done 2026-09-30 | git tag `bir-snapshot-2026-09-30` (commit `b47f351`, branch `main`); read-only APFS clone `~/Desktop/options_research_BIR_snapshot_2026-09-30/` with `MANIFEST.sha256` |
 | T0 audit and definitions | **done, frozen** | `revision/out/T0/README.md`, `findings.csv`, `t0_*.txt`, `S*_*.csv`; code `revision/T0/` |
 | T0b correctness rebuild | **done 2026-10-01 (23:36); stopped at the decision gate**: canonical grid 324 cells, unfiltered robustness, economics, EN convergence audit; includes the additional blocking correction R9 (future-event features removed) | `revision/out/T0b/README.md`; code `revision/T0b/` |
-| T1–T5 | not started (gate: T0b review) | — |
+| T1 paired marginal-lift inference | **done 2026-10-02; stopped for review** | `revision/out/T1/README.md`; code `revision/T1/` |
+| T2–T5 | not started (gate: T1 review) | — |
 | Manuscript rewrite (Phase 2) | not started (gate: T1–T5 review) | — |
 
 Work happens on git branch `revision`; `main` stays at the BIR snapshot.

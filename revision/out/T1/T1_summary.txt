@@ -1,0 +1,12 @@
+Task 1 paired lift; per-window ICs recomputed from the Task 0b predictions (max |diff| vs Task 0b windows.csv: 9.93e-17; 9,558 window ICs)
+[primary] tests 72; degenerate 4; t > 3: 0; Holm p < 0.05: 0; raw p < 0.05: 2; mean dIC -0.0000; t range -1.29 .. +2.12; min Holm p 1.000
+[ols] tests 36; degenerate 0; t > 3: 0; Holm p < 0.05: 0; raw p < 0.05: 2; mean dIC -0.0009; t range -2.29 .. +0.41; min Holm p 1.000
+[nonnested] tests 36; degenerate 0; t > 3: 1; Holm p < 0.05: 0; raw p < 0.05: 5; mean dIC +0.0058; t range -1.03 .. +3.17; min Holm p 0.124
+[vol_primary] tests 72; degenerate 0; t > 3: 63; Holm p < 0.05: 63; raw p < 0.05: 64; mean dIC +0.0346; t range +0.01 .. +22.16; min Holm p 0.000
+[vol_ols] tests 36; degenerate 0; t > 3: 32; Holm p < 0.05: 34; raw p < 0.05: 34; mean dIC +0.0160; t range +0.50 .. +10.86; min Holm p 0.000
+[vol_nonnested] tests 36; degenerate 0; t > 3: 27; Holm p < 0.05: 27; raw p < 0.05: 32; mean dIC +0.0251; t range +0.66 .. +7.67; min Holm p 0.000
+primary family SEs (median): SE(dIC) 0.0055 vs SE(IC_X) 0.0054, SE(IC_A) 0.0048; median corr(IC_X, IC_A) 0.50; median DT_delta 0.0165, median MDE80_delta 0.0211
+  ElasticNet: median SE(dIC) 0.0036, SE(IC_X) 0.0043, SE(IC_A) 0.0031, median corr 0.70
+  XGBoost: median SE(dIC) 0.0063, SE(IC_X) 0.0060, SE(IC_A) 0.0055, median corr 0.40
+largest return paired t (all families): nonnested:ElasticNet/candidate_6/rolling_9m_3m/h3 dIC +0.0164 t 3.17 p 0.0034 Holm 0.124; nonnested:OLS/B/rolling_9m_3m/h3 dIC +0.0072 t 2.28 p 0.0297 Holm 1.000; nonnested:ElasticNet/candidate_6/rolling_9m_3m/h5 dIC +0.0187 t 2.15 p 0.0396 Holm 1.000; nonnested:OLS/B/rolling_9m_3m/h5 dIC +0.0085 t 2.14 p 0.0407 Holm 1.000; primary:XGBoost/repr_grid/rolling_9m_3m/h3 dIC +0.0088 t 2.12 p 0.0417 Holm 1.000; nonnested:XGBoost/B/rolling_9m_3m/h1 dIC +0.0097 t 2.10 p 0.0441 Holm 1.000; primary:ElasticNet/C/rolling_9m_3m/h3 dIC +0.0061 t 2.08 p 0.0454 Holm 1.000; nonnested:OLS/candidate_6/rolling_9m_3m/h5 dIC +0.0096 t 1.92 p 0.0646 Holm 1.000
+run time 49 s
