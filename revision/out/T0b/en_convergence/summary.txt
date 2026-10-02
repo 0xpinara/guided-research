@@ -1,0 +1,7 @@
+ElasticNet fits audited: 3186 windows in 108 cells
+re-fit reproduces the saved canonical predictions: max |diff| 0.000e+00
+ConvergenceWarnings raised during ElasticNetCV fits: 34 in 22 of 3186 window fits
+final refits at the selected alpha that did NOT converge (n_iter = max_iter = 1000): 0 of 3186
+  return: warnings 32 in 20 fits; final fits not converged 0/1593; selected alpha counts {0.0001: 37, 0.001: 826, 0.01: 35, 0.1: 695}
+  volatility: warnings 2 in 2 fits; final fits not converged 0/1593; selected alpha counts {0.0001: 862, 0.001: 722, 0.01: 9}
+final-fit iterations: median 13, max 725

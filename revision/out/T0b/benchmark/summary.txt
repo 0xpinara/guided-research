@@ -1,0 +1,84 @@
+cells: 324 (expected 324); windows: 9,558
+return: t>3 cells 7/162 (canonical daily IC); max t 5.5; median NW SE 0.0061 -> 3xSE 0.0182; share of test dates with constant predictions (EN) 47.7%
+volatility: t>3 cells 162/162 (canonical daily IC); max t 62.3; median NW SE 0.0101 -> 3xSE 0.0304; share of test dates with constant predictions (EN) 0.0%
+return cells with t > 3 (canonical IC): XGBoost/B/rolling_9m_3m/h1 IC +0.0150 t 5.51; XGBoost/candidate_6/rolling_9m_3m/h3 IC +0.0183 t 5.21; ElasticNet/candidate_6/rolling_9m_3m/h3 IC +0.0195 t 4.22; XGBoost/repr_grid_raw/rolling_9m_3m/h3 IC +0.0188 t 3.69; ElasticNet/candidate_6/rolling_9m_3m/h5 IC +0.0229 t 3.38; XGBoost/candidate_6/rolling_9m_3m/h5 IC +0.0201 t 3.26; XGBoost/C/rolling_9m_3m/h1 IC +0.0122 t 3.15
+
+Corrected Table 3 (rolling 9m/3m, h=5; mean daily cross-sectional IC; * = t > 3)
+set               ret OLS    ret Ela    ret XGB    vol OLS    vol Ela    vol XGB
+A                +0.0052    +0.0042    +0.0099     +0.522*    +0.515*    +0.477*
+B                +0.0137    +0.0066    +0.0089     +0.539*    +0.566*    +0.536*
+C                +0.0057    -0.0012    +0.0006     +0.546*    +0.575*    +0.551*
+candidate_6      +0.0148    +0.0229*   +0.0201*    +0.542*    +0.568*    +0.529*
+D                +0.0062    +0.0058    +0.0057     +0.541*    +0.573*    +0.552*
+repr_svi         +0.0038    +0.0022    +0.0025     +0.538*    +0.557*    +0.537*
+repr_grid        +0.0064    +0.0028    +0.0072     +0.543*    +0.573*    +0.551*
+repr_grid_raw    +0.0057    +0.0084    +0.0131     +0.547*    +0.574*    +0.552*
+repr_bkm         +0.0043    -0.0026    +0.0077     +0.526*    +0.522*    +0.493*
+
+Marginal lift over Set A (mean over EN+XGB x 2 schemes x 3 horizons; canonical IC)
+  return     B              lift +0.0037; per-cell paired HAC t -1.0 .. +2.1 (median +0.4)
+  return     C              lift -0.0004; per-cell paired HAC t -1.2 .. +2.1 (median -0.5; t undefined in 1 cells: lift 0 in every window)
+  return     candidate_6    lift +0.0076; per-cell paired HAC t -1.0 .. +3.2 (median +1.3)
+  return     D              lift +0.0005; per-cell paired HAC t -0.8 .. +1.5 (median +0.1; t undefined in 1 cells: lift 0 in every window)
+  return     repr_svi       lift -0.0027; per-cell paired HAC t -1.3 .. +0.7 (median -0.7; t undefined in 1 cells: lift 0 in every window)
+  return     repr_grid      lift +0.0019; per-cell paired HAC t -0.5 .. +2.1 (median +0.5)
+  return     repr_grid_raw  lift +0.0017; per-cell paired HAC t -0.9 .. +1.7 (median +0.6)
+  return     repr_bkm       lift -0.0011; per-cell paired HAC t -1.3 .. +1.1 (median -0.4; t undefined in 1 cells: lift 0 in every window)
+  volatility B              lift +0.0318; per-cell paired HAC t +2.6 .. +7.7 (median +5.0)
+  volatility C              lift +0.0447; per-cell paired HAC t +7.9 .. +22.2 (median +12.3)
+  volatility candidate_6    lift +0.0335; per-cell paired HAC t +3.3 .. +7.3 (median +5.9)
+  volatility D              lift +0.0421; per-cell paired HAC t +5.8 .. +21.4 (median +11.9)
+  volatility repr_svi       lift +0.0315; per-cell paired HAC t +3.5 .. +13.9 (median +7.4)
+  volatility repr_grid      lift +0.0418; per-cell paired HAC t +5.8 .. +19.1 (median +11.8)
+  volatility repr_grid_raw  lift +0.0432; per-cell paired HAC t +6.2 .. +18.9 (median +12.9)
+  volatility repr_bkm       lift +0.0042; per-cell paired HAC t +0.0 .. +6.3 (median +1.3)
+old vs new (return, 108 headline cells): corr(BIR IC, new IC) -0.263; t>3 BIR 5 -> new 1
+old vs new (volatility, 108 headline cells): corr(BIR IC, new IC) 0.685; t>3 BIR 108 -> new 108
+
+Constant-prediction dates (scored IC = 0), share of test dates
+  return     ElasticNet:  48.5% of test dates; windows constant throughout 773/1593
+  return     OLS       :   0.0% of test dates; windows constant throughout 0/1593
+  return     XGBoost   :   0.1% of test dates; windows constant throughout 0/1593
+  volatility ElasticNet:   0.0% of test dates; windows constant throughout 0/1593
+  volatility OLS       :   0.0% of test dates; windows constant throughout 0/1593
+  volatility XGBoost   :   0.0% of test dates; windows constant throughout 0/1593
+
+Headline numbers: paper vs corrected
+  return cells with t > 3 (of 162)                 | 7                                        | 7
+  volatility cells with t > 3 (of 162)             | 158                                      | 162
+  largest volatility HAC t                         | 58.7                                     | 62.3
+  median HAC SE of the mean return IC              | 0.0064 (198 cells incl. FFNN/TFT)        | 0.0061 (162 cells)
+  t>3 detection threshold (3 x SE)                 | 0.019                                    | 0.0182
+  return lift D over A (EN+XGB, full grid)         | +0.0027 (paper: about 0.003)             | +0.0005
+  volatility lift D over A (EN+XGB, full grid)     | 0.0362 ('more than ten SEs')             | 0.0421 (per-cell paired t 5.8..21.4)
+  volatility lift repr_svi over A                  | 0.0235                                   | 0.0315
+  Set A volatility IC, EN rolling 5d               | 0.520                                    | 0.515
+  return IC ElasticNet/repr_grid/rolling_9m_3m/h5  | 0.0346 (t 4.28)                          | +0.0028 (t +0.47)
+  return IC ElasticNet/D/rolling_9m_3m/h5          | 0.0331 (t 4.81)                          | +0.0058 (t +1.24)
+  return IC ElasticNet/A/rolling_9m_3m/h5          | 0.0311 (t 3.21)                          | +0.0042 (t +1.32)
+  return IC ElasticNet/repr_bkm/rolling_9m_3m/h5   | 0.0312 (t 3.24)                          | -0.0026 (t -0.70)
+  return IC XGBoost/A/expanding/h1                 | 0.0136 (t 3.64)                          | +0.0057 (t +1.21)
+  return IC XGBoost/D/expanding/h3                 | 0.0118 (t 1.47)                          | +0.0048 (t +0.61)
+  return IC XGBoost/D/rolling_9m_3m/h5             | -0.0025 (t -0.39)                        | +0.0057 (t +0.63)
+  headline long/short Sharpe (EN/D/rolling/5d)     | 1.15 (geometric formula, all 60 names)   | 0.403 stocks only, arithmetic (0.368 all names)
+  headline final $ from $1,000                     | 5,228                                    | 1,437 stocks (1,381 all names)
+  headline periods flat (all predictions tied)     | 0 (ties broken arbitrarily)              | 78.2%
+  ETF-free headline (Sharpe / $)                   | 1.07 / 4,585 (geometric)                 | 0.403 / 1,437
+  SR0 (expected-maximum Sharpe)                    | 1.153 (N = 198)                          | 0.631 (N = 162)
+  configurations above SR0                         | 2 of 198                                 | 11 of 162
+  DSR of the headline cell                         | about 0.497 (referee_fixes.txt)          | 0.252
+  PBO                                              | 0.571 (expanding/3d group)               | 0.600 (family of 162); headline group rolling h5 0.429
+
+IC-definition comparison (two headline cells)
+  ElasticNet/D/rolling_9m_3m/5     BIR pipeline (saved / T0 re-fit predictions)   pooled   IC +0.0331  t +4.81  (windows 10)
+  ElasticNet/D/rolling_9m_3m/5     BIR pipeline (saved / T0 re-fit predictions)   pooled0  IC +0.0103  t +2.31  (windows 32)
+  ElasticNet/D/rolling_9m_3m/5     BIR pipeline (saved / T0 re-fit predictions)   daily    IC +0.0092  t +2.16  (windows 32)
+  ElasticNet/D/rolling_9m_3m/5     corrected pipeline (Task 0b)                   pooled   IC +0.0313  t +1.97  (windows 7)
+  ElasticNet/D/rolling_9m_3m/5     corrected pipeline (Task 0b)                   pooled0  IC +0.0068  t +1.16  (windows 32)
+  ElasticNet/D/rolling_9m_3m/5     corrected pipeline (Task 0b)                   daily    IC +0.0058  t +1.24  (windows 32)
+  XGBoost/D/expanding/3            BIR pipeline (saved / T0 re-fit predictions)   pooled   IC +0.0118  t +1.47  (windows 27)
+  XGBoost/D/expanding/3            BIR pipeline (saved / T0 re-fit predictions)   pooled0  IC +0.0118  t +1.47  (windows 27)
+  XGBoost/D/expanding/3            BIR pipeline (saved / T0 re-fit predictions)   daily    IC +0.0088  t +1.20  (windows 27)
+  XGBoost/D/expanding/3            corrected pipeline (Task 0b)                   pooled   IC +0.0038  t +0.41  (windows 27)
+  XGBoost/D/expanding/3            corrected pipeline (Task 0b)                   pooled0  IC +0.0038  t +0.41  (windows 27)
+  XGBoost/D/expanding/3            corrected pipeline (Task 0b)                   daily    IC +0.0048  t +0.61  (windows 27)

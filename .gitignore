@@ -1,5 +1,5 @@
 # Large data and artifacts — keep out of git
-data/
+/data/
 results/model_checkpoints/
 results/logs/
 .pycache/
@@ -16,3 +16,9 @@ results/tables/vol_oos_xgb.parquet
 
 # Keep (tracked): src/, scripts/, config/, tests/, README.md, results/tables/ (minus
 # the two big parquets above), results/figures/
+
+# Task 0b large regenerable outputs (sha256 in revision/out/T0b/MANIFEST_large_files.sha256)
+revision/out/T0b/panel/
+revision/out/T0b/predictions/
+revision/out/T0b/predictions_unfiltered/
+revision/out/T0b/diagnostic_with_future_event_features/predictions/

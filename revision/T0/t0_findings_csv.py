@@ -16,7 +16,7 @@ ACTION = {
     "D5": "0b.1 fix feat_50 contract key", "D6": "0b.1 GOOG earnings (WRDS)",
     "D7": "0b.1 enforce or drop the 50-contract claim (decision 4)", "D8": "decision 3 (sample window); paper wording",
     "D9": "paper wording", "D10": "paper/README wording", "D11": "0b.2 drop legacy split join",
-    "D12": "0b.1/0b.5 build RV before any join", "D13": "0b.1 current-GICS sector map", "D14": "0b.8 run commands",
+    "D12": "0b.1/0b.5 build RV before any join", "D13": "0b.1 current-GICS sector map", "D14": "0b.8 run commands", "D15": "0b R9 remove future-event features",
     "P1": "0b.2 per-window preprocessing", "P2": "0b.2 surface NaN treatment (decision 6)",
     "P3": "0b.3 OLS in float64", "P4": "0b.4 constant-forecast rule (decision 5)",
     "P5": "0b.6 flat book on ties (decision 5)", "P6": "0b.3 document or fit on full block",

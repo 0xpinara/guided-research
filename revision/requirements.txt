@@ -1,0 +1,11 @@
+# Exact versions used for Task 0 and Task 0b (Python 3.9.6, macOS 15.6.1 arm64).
+# With these versions the Task 0 float32 OLS re-fits reproduce the saved BIR OLS ICs.
+numpy==2.0.2
+pandas==2.2.3
+scipy==1.13.1
+scikit-learn==1.6.1
+xgboost==2.1.4
+pyarrow==21.0.0
+PyYAML==6.0.3
+matplotlib==3.9.4
+yfinance==1.2.0   # only revision/T0b/fetch_yahoo_earnings.py (one-time snapshot)

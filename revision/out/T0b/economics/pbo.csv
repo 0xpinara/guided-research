@@ -1,0 +1,8 @@
+family,pbo,n_trials,n_obs,n_splits,median_oos_rank_of_is_best
+"all 162 (calendar-month returns, common months)",0.6,162,82,70,74.0
+expanding h=1 (27 configurations),0.6,27,1701,70,10.0
+expanding h=3 (27 configurations),0.4,27,567,70,18.0
+expanding h=5 (27 configurations),0.21428571428571427,27,341,70,22.0
+rolling_9m_3m h=1 (27 configurations),0.8285714285714286,27,2016,70,11.0
+rolling_9m_3m h=3 (27 configurations),0.4,27,672,70,16.0
+rolling_9m_3m h=5 (27 configurations),0.42857142857142855,27,404,70,18.0

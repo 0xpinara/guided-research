@@ -1,0 +1,13 @@
+cell,pipeline,definition,mean_ic,nw_t,windows_with_defined_ic
+ElasticNet/D/rolling_9m_3m/5,BIR pipeline (saved / T0 re-fit predictions),pooled,0.033098969576485324,4.80739699192744,10
+ElasticNet/D/rolling_9m_3m/5,BIR pipeline (saved / T0 re-fit predictions),pooled0,0.010343427992651665,2.3066736663067986,32
+ElasticNet/D/rolling_9m_3m/5,BIR pipeline (saved / T0 re-fit predictions),daily,0.00919023396981219,2.1575582552479897,32
+ElasticNet/D/rolling_9m_3m/5,corrected pipeline (Task 0b),pooled,0.03126773709818458,1.9670107437436564,7
+ElasticNet/D/rolling_9m_3m/5,corrected pipeline (Task 0b),pooled0,0.006839817490227877,1.1639752097912486,32
+ElasticNet/D/rolling_9m_3m/5,corrected pipeline (Task 0b),daily,0.0057651814461464855,1.2372029130200761,32
+XGBoost/D/expanding/3,BIR pipeline (saved / T0 re-fit predictions),pooled,0.01184760643220203,1.4722571402651454,27
+XGBoost/D/expanding/3,BIR pipeline (saved / T0 re-fit predictions),pooled0,0.01184760643220203,1.4722571402651454,27
+XGBoost/D/expanding/3,BIR pipeline (saved / T0 re-fit predictions),daily,0.008838516543686932,1.1955182705297205,27
+XGBoost/D/expanding/3,corrected pipeline (Task 0b),pooled,0.003839452996943923,0.40524010590843274,27
+XGBoost/D/expanding/3,corrected pipeline (Task 0b),pooled0,0.003839452996943923,0.40524010590843274,27
+XGBoost/D/expanding/3,corrected pipeline (Task 0b),daily,0.004820330239547544,0.6140071203070997,27

@@ -1,0 +1,15 @@
+Corrected economics (stocks-only book unless stated; arithmetic Sharpe)
+search family N = 162 (5 never trade: Sharpe set to 0); SR0 = 0.6314; configurations above SR0: 11; DSR > 0.95: 0
+sensitivity: SR0 excluding the never-trading configurations (N = 157) = 0.6241; configurations above it 11; DSR > 0.95: 0; headline DSR 0.258; best-configuration DSR 0.789
+best configuration: {'model': 'XGBoost', 'feature_set': 'D', 'scheme': 'rolling_9m_3m', 'horizon': 5} Sharpe 0.9086 (DSR 0.783)
+Sharpe distribution over the family: median 0.256, share > 0 0.88
+BIR headline cell ElasticNet / D / rolling_9m_3m / h=5:
+  stocks   : Sharpe 0.4034, final $ 1,437, flat periods 78.2%, DSR 0.252
+  all_names: Sharpe 0.3679, final $ 1,381, flat periods 78.2%, DSR nan
+PBO all 162 (calendar-month returns, common months): 0.600 (N=162, T=82, splits=70, median OOS rank of IS-best 74)
+PBO expanding h=1 (27 configurations): 0.600 (N=27, T=1701, splits=70, median OOS rank of IS-best 10)
+PBO expanding h=3 (27 configurations): 0.400 (N=27, T=567, splits=70, median OOS rank of IS-best 18)
+PBO expanding h=5 (27 configurations): 0.214 (N=27, T=341, splits=70, median OOS rank of IS-best 22)
+PBO rolling_9m_3m h=1 (27 configurations): 0.829 (N=27, T=2016, splits=70, median OOS rank of IS-best 11)
+PBO rolling_9m_3m h=3 (27 configurations): 0.400 (N=27, T=672, splits=70, median OOS rank of IS-best 16)
+PBO rolling_9m_3m h=5 (27 configurations): 0.429 (N=27, T=404, splits=70, median OOS rank of IS-best 18)

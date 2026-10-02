@@ -1,0 +1,76 @@
+19:11:29 done return h1 candidate_6 in 88 s
+19:11:58 done return h1 A in 116 s
+19:12:43 done return h1 repr_svi in 161 s
+19:12:57 done return h1 B in 176 s
+19:13:34 done return h1 repr_grid in 212 s
+19:13:43 done return h1 C in 221 s
+19:13:45 done return h1 D in 224 s
+19:14:08 done return h1 repr_bkm in 131 s
+19:14:23 done return h1 repr_grid_raw in 174 s
+19:14:37 done return h3 A in 114 s
+19:15:10 done return h3 candidate_6 in 87 s
+19:15:54 done return h3 B in 176 s
+19:16:44 done return h3 repr_svi in 155 s
+19:17:17 done return h3 C in 224 s
+19:17:22 done return h3 repr_bkm in 132 s
+19:17:46 done return h3 repr_grid_raw in 189 s
+19:17:55 done return h5 A in 121 s
+19:18:11 done return h3 D in 266 s
+19:18:20 done return h3 repr_grid in 236 s
+19:18:55 done return h5 candidate_6 in 93 s
+19:20:28 done return h5 B in 225 s
+20:35:07 done return h5 repr_svi in 4633 s
+22:17:58 skip return h1 B
+22:17:58 skip return h1 A
+22:17:58 skip return h1 candidate_6
+22:17:58 skip return h1 C
+22:17:58 skip return h1 repr_svi
+22:17:58 skip return h1 D
+22:17:58 skip return h1 repr_grid_raw
+22:17:58 skip return h1 repr_bkm
+22:17:58 skip return h3 A
+22:17:58 skip return h3 B
+22:17:58 skip return h3 C
+22:17:58 skip return h3 candidate_6
+22:17:58 skip return h1 repr_grid
+22:17:58 skip return h3 D
+22:17:58 skip return h3 repr_svi
+22:17:58 skip return h3 repr_grid
+22:17:58 skip return h3 repr_bkm
+22:17:58 skip return h5 A
+22:17:58 skip return h5 B
+22:17:58 skip return h3 repr_grid_raw
+22:17:58 skip return h5 candidate_6
+22:17:58 skip return h5 repr_svi
+22:20:16 done return h5 repr_bkm in 138 s
+22:21:28 done return h5 repr_grid_raw in 209 s
+22:22:16 done return h5 repr_grid in 258 s
+22:22:25 done return h5 C in 267 s
+22:22:28 done return h5 D in 269 s
+22:23:05 done volatility h1 A in 307 s
+22:25:45 done volatility h1 candidate_6 in 209 s
+22:26:40 done volatility h1 B in 384 s
+22:27:55 done volatility h1 repr_svi in 327 s
+22:29:10 done volatility h1 C in 462 s
+22:31:25 done volatility h1 repr_bkm in 286 s
+22:31:34 done volatility h1 repr_grid in 508 s
+22:32:10 done volatility h1 D in 585 s
+22:32:44 done volatility h3 A in 289 s
+22:32:48 done volatility h1 repr_grid_raw in 423 s
+22:35:21 done volatility h3 candidate_6 in 227 s
+22:35:42 done volatility h3 B in 392 s
+22:39:30 done volatility h3 repr_svi in 405 s
+22:40:26 done volatility h3 C in 540 s
+22:41:10 done volatility h3 repr_bkm in 328 s
+22:43:03 done volatility h3 repr_grid in 615 s
+22:43:50 done volatility h3 repr_grid_raw in 509 s
+22:44:09 done volatility h3 D in 719 s
+22:44:19 done volatility h5 A in 289 s
+22:46:39 done volatility h5 candidate_6 in 216 s
+22:46:51 done volatility h5 B in 385 s
+22:50:22 done volatility h5 C in 552 s
+22:50:57 done volatility h5 repr_svi in 408 s
+22:51:55 done volatility h5 repr_bkm in 304 s
+22:53:47 done volatility h5 repr_grid in 568 s
+22:53:55 done volatility h5 repr_grid_raw in 436 s
+22:54:33 done volatility h5 D in 643 s

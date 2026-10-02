@@ -1,0 +1,11 @@
+ticker,compustat_dates,yahoo_dates,exact_matches,compustat_dates_within_1_day_of_yahoo
+AAPL,35,36,35,35
+AMZN,35,36,35,35
+DIS,35,36,35,35
+JNJ,35,36,35,35
+JPM,35,36,35,35
+KO,35,36,35,35
+MSFT,35,36,35,35
+NVDA,36,36,36,36
+WMT,36,36,36,36
+XOM,35,36,35,35

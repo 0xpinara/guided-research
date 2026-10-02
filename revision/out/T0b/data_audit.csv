@@ -1,0 +1,19 @@
+rule,task0_finding,description,rows_before,rows_after,values_changed,note
+R0,,start: BIR raw feature panel (features_panel.parquet),134368,134368,,
+R1,D2,drop META (CRSP 'META' = PERMNO 21413 then 13407; FB-era 13407 not on disk; WRDS unreachable),134368,133576,,the 148 PERMNO-21413 rows (2021-06-30..2022-01-28) carry another security's returns and stock features and have no option data (n_contracts = 0); Meta itself starts 2022-06-09
+R2,D3,recompute feat_28 on the corporate-action-adjusted price,133576,133576,75.0,75 of the 75 changed rows move by more than 0.01; unchanged rows are identical to BIR
+R2,D3,recompute feat_29 on the corporate-action-adjusted price,133576,133576,150.0,150 of the 150 changed rows move by more than 0.01; unchanged rows are identical to BIR
+R2,D3,recompute feat_33 on the corporate-action-adjusted price,133576,133576,4285.0,"1,030 of the 4,285 changed rows move by more than 0.01; unchanged rows are identical to BIR"
+R2,D3,recompute feat_34 on the corporate-action-adjusted price,133576,133576,4353.0,"1,102 of the 4,353 changed rows move by more than 0.01; unchanged rows are identical to BIR"
+R2,D3,recompute feat_35 on the corporate-action-adjusted price,133576,133576,347.0,281 of the 347 changed rows move by more than 0.01; unchanged rows are identical to BIR
+R2,D3,recompute feat_36 on the corporate-action-adjusted price,133576,133576,735.0,731 of the 735 changed rows move by more than 0.01; unchanged rows are identical to BIR
+R3,D6,GOOG feat_43/44 from Yahoo GOOGL announcement dates (BIR rule),133576,133576,2264.0,distinct feat_43 values 0 -> 101
+R3,D6,GOOG feat_51 recomputed with the BIR function and the Yahoo dates,133576,133576,768.0,non-missing before 0
+R4,D4,recompute feat_25,133576,133576,128142.0,rank corr old vs new 0.985
+R4,D4,recompute feat_26,133576,133576,128169.0,rank corr old vs new 0.990
+R5,D5,recompute feat_50,133576,133576,133136.0,rank corr old vs new 0.826
+R6,D12,realised-vol targets rv_1d/3d/5d built on the full CRSP calendar,133576,133576,,BIR built RV after the split join (480 spliced 5-day windows)
+R7,D11,no join with the legacy split file (its 10 buffer dates retained),133576,133576,,
+R9,new (2026-10-01),"remove future-event features feat_43, feat_44, feat_45, feat_51 from the canonical panels",133576,133576,,"they use realised next earnings / ex-dividend dates with no point-in-time announcement record; kept only in panel/event_features_expost.parquet (ex-post descriptive diagnostics), no replacement features added"
+R8,D7,primary panel drops ticker-days with fewer than 50 cleaned contracts,133576,129852,,"3,724 ticker-days, 59 tickers; unfiltered panel kept for robustness"
+END,,"panel_primary: 59 tickers, 2261 dates, 2016-01-04..2024-12-31",129852,129852,,

@@ -1,0 +1,244 @@
+19:11:29 done return h1 candidate_6 in 88 s
+19:11:58 done return h1 A in 116 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+19:12:43 done return h1 repr_svi in 161 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+19:12:57 done return h1 B in 176 s
+19:13:34 done return h1 repr_grid in 212 s
+19:13:43 done return h1 C in 221 s
+19:13:45 done return h1 D in 224 s
+19:14:08 done return h1 repr_bkm in 131 s
+19:14:23 done return h1 repr_grid_raw in 174 s
+19:14:37 done return h3 A in 114 s
+19:15:10 done return h3 candidate_6 in 87 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+19:15:54 done return h3 B in 176 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 2.296e-01, tolerance: 8.237e-03
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.691e-01, tolerance: 7.112e-03
+  model = cd_fast.enet_coordinate_descent(
+19:16:44 done return h3 repr_svi in 155 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.247e-01, tolerance: 1.056e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 6.792e-02, tolerance: 9.077e-03
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.987e-01, tolerance: 1.216e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.183e-01, tolerance: 1.026e-02
+  model = cd_fast.enet_coordinate_descent(
+19:17:17 done return h3 C in 224 s
+19:17:22 done return h3 repr_bkm in 132 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.097e-02, tolerance: 8.237e-03
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 3.911e-02, tolerance: 9.077e-03
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 2.197e-02, tolerance: 1.216e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 6.350e-02, tolerance: 1.026e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.278e-02, tolerance: 7.112e-03
+  model = cd_fast.enet_coordinate_descent(
+19:17:46 done return h3 repr_grid_raw in 189 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.840e-02, tolerance: 1.216e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.308e-02, tolerance: 1.026e-02
+  model = cd_fast.enet_coordinate_descent(
+19:17:55 done return h5 A in 121 s
+19:18:11 done return h3 D in 266 s
+19:18:20 done return h3 repr_grid in 236 s
+19:18:55 done return h5 candidate_6 in 93 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+19:20:28 done return h5 B in 225 s
+20:35:07 done return h5 repr_svi in 4633 s
+/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
+=== resume 2026-10-01 22:17:56 on AC power, caffeinate -ims, 6 workers ===
+22:17:58 skip return h1 B
+22:17:58 skip return h1 A
+22:17:58 skip return h1 candidate_6
+22:17:58 skip return h1 C
+22:17:58 skip return h1 repr_svi
+22:17:58 skip return h1 D
+22:17:58 skip return h1 repr_grid_raw
+22:17:58 skip return h1 repr_bkm
+22:17:58 skip return h3 A
+22:17:58 skip return h3 B
+22:17:58 skip return h3 C
+22:17:58 skip return h3 candidate_6
+22:17:58 skip return h1 repr_grid
+22:17:58 skip return h3 D
+22:17:58 skip return h3 repr_svi
+22:17:58 skip return h3 repr_grid
+22:17:58 skip return h3 repr_bkm
+22:17:58 skip return h5 A
+22:17:58 skip return h5 B
+22:17:58 skip return h3 repr_grid_raw
+22:17:58 skip return h5 candidate_6
+22:17:58 skip return h5 repr_svi
+22:20:16 done return h5 repr_bkm in 138 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.377e-02, tolerance: 1.311e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 4.009e-02, tolerance: 1.972e-02
+  model = cd_fast.enet_coordinate_descent(
+22:21:28 done return h5 repr_grid_raw in 209 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 5.805e-02, tolerance: 1.311e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 3.454e-01, tolerance: 1.693e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.812e-02, tolerance: 1.422e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 4.032e-01, tolerance: 1.972e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.435e-01, tolerance: 1.622e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 3.439e-02, tolerance: 1.311e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 3.559e-02, tolerance: 1.693e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.519e-02, tolerance: 1.422e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 2.258e-01, tolerance: 1.972e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 5.903e-02, tolerance: 1.622e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 9.356e-01, tolerance: 1.311e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 6.564e-01, tolerance: 1.120e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.945e+00, tolerance: 1.693e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.519e+00, tolerance: 1.422e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 2.409e+00, tolerance: 1.972e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.461e-02, tolerance: 1.127e-02
+  model = cd_fast.enet_coordinate_descent(
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.821e+00, tolerance: 1.622e-02
+  model = cd_fast.enet_coordinate_descent(
+22:22:16 done return h5 repr_grid in 258 s
+22:22:25 done return h5 C in 267 s
+22:22:28 done return h5 D in 269 s
+22:23:05 done volatility h1 A in 307 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+22:25:45 done volatility h1 candidate_6 in 209 s
+22:26:40 done volatility h1 B in 384 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+22:27:55 done volatility h1 repr_svi in 327 s
+22:29:10 done volatility h1 C in 462 s
+22:31:25 done volatility h1 repr_bkm in 286 s
+22:31:34 done volatility h1 repr_grid in 508 s
+22:32:10 done volatility h1 D in 585 s
+22:32:44 done volatility h3 A in 289 s
+22:32:48 done volatility h1 repr_grid_raw in 423 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+22:35:21 done volatility h3 candidate_6 in 227 s
+22:35:42 done volatility h3 B in 392 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+22:39:30 done volatility h3 repr_svi in 405 s
+22:40:26 done volatility h3 C in 540 s
+22:41:10 done volatility h3 repr_bkm in 328 s
+22:43:03 done volatility h3 repr_grid in 615 s
+22:43:50 done volatility h3 repr_grid_raw in 509 s
+22:44:09 done volatility h3 D in 719 s
+22:44:19 done volatility h5 A in 289 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+22:46:39 done volatility h5 candidate_6 in 216 s
+22:46:51 done volatility h5 B in 385 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+/Users/pia/Library/Python/3.9/lib/python/site-packages/numpy/lib/_nanfunctions_impl.py:1634: RuntimeWarning: All-NaN slice encountered
+  return fnb._ureduce(a,
+22:50:22 done volatility h5 C in 552 s
+22:50:57 done volatility h5 repr_svi in 408 s
+22:51:55 done volatility h5 repr_bkm in 304 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 5.114e-03, tolerance: 4.796e-03
+  model = cd_fast.enet_coordinate_descent(
+22:53:47 done volatility h5 repr_grid in 568 s
+22:53:55 done volatility h5 repr_grid_raw in 436 s
+/Users/pia/Library/Python/3.9/lib/python/site-packages/sklearn/linear_model/_coordinate_descent.py:695: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 1.906e-02, tolerance: 4.796e-03
+  model = cd_fast.enet_coordinate_descent(
+22:54:33 done volatility h5 D in 643 s
+all jobs finished in 36.6 min
